@@ -122,6 +122,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Line.cs" />
+    <Compile Include="Model\Character.cs" />
+    <Compile Include="Model\Act.cs" />
+    <Compile Include="Model\Play.cs" />
+    <Compile Include="Model\Scene.cs" />
+    <Compile Include="Model\Subdivision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PHP\compte-mots - Copy.txt" />
+    <Content Include="PHP\compte-mots.txt" />
+    <Content Include="PHP\play-data - Copy.txt" />
+    <Content Include="PHP\play-data.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -153,6 +163,10 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

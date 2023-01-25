@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PieceOfTheater.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,18 @@ namespace PieceOfTheater
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var play = new Play();
+            play.Parse(Input.Text);
+
+            Ouput.Text =
+                $"Actes: {play.Acts.Count}\r\n" +
+                $"Scenes: {play.Acts.SelectMany(a=>a.Elements).Count()}\r\n" +
+                $"Personnages: {string.Join("; ",play.Acts.SelectMany(a => a.Elements.SelectMany(s=>s.Elements).Select(line=>line.Character)).Distinct())}\r\n" +
+                $"";
         }
     }
 }
