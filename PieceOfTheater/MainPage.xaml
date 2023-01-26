@@ -18,9 +18,9 @@
         <TextBox Text="Tables de répétition" IsReadOnly="true"></TextBox>
         <TextBox TextWrapping="Wrap" Text="TextBox"/>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="I. L'arc-en-ciel&#xD;&#xA;&#xD;&#xA;1. Le vert&#xD;&#xA;Rico: c'est tout vert&#xD;&#xA;Gai: Ben oui&#xD;&#xA;Rico: c'est rigolo &quot;ben oui&quot;&#xD;&#xA;Gai: Ben oui&#xD;&#xA;&#xD;&#xA;2. Le rouge&#xD;&#xA;Rico: tiens, voilà berek.&#xD;&#xA;Gai: ben oui.&#xD;&#xA;berek: bon j'ai trouvé quatre solutions possibles à la jaune&#xD;&#xA;Rico: prout. On rouge, là.&#xD;&#xA;&#xD;&#xA;II. Acteurs et Actrices&#xD;&#xA;&#xD;&#xA;1. la triche&#xD;&#xA;Zab: j'ai refait le classement, berek est dernier&#xD;&#xA;Rico: c'est pas bien&#xD;&#xA;Gai: Ben non&#xD;&#xA;berek (dépité): y'a de la triche, je m'en vais&#xD;&#xA;&#xD;&#xA;2. début de la fin&#xD;&#xA;Rico: tiens, plus de berek&#xD;&#xA;Gai (gai): ben non.&#xD;&#xA;Zab: bon je vais me coucher&#xD;&#xA;&#xD;&#xA;3. fin de la fin&#xD;&#xA;Rico (fatigué): tiens, plus de zab&#xD;&#xA;Gai (expressif): ben non." Width="604"/>
-            <TextBox x:Name="Ouput" Height="457" TextWrapping="Wrap" Text="" Width="799"/>
+            <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604"/>
+            <TextBox x:Name="Ouput" Height="457" TextWrapping="Wrap" Text="{Binding Output}" Width="799"/>
         </StackPanel>
-        <Button Content="Button" Height="152" Width="340" Click="Button_Click"/>
+        <Button Content="Button" Height="152" Width="340" Command="{Binding Process}"/>
     </StackPanel>
 </Page>

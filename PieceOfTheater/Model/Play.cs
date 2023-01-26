@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace PieceOfTheater.Model
 {
-    public class Play
+    public interface IPlayModel {
+        string Title { get; }
+        List<Character> Characters { get; }
+        List<Act> Acts { get; }
+        void Parse(string text);
+    }
+
+    public class Play :IPlayModel
     {
         public string Title { get; set; }
         public List<Character> Characters { get; } = new List<Character>();
@@ -16,6 +23,8 @@ namespace PieceOfTheater.Model
 
         public void Parse(string text) 
         {
+            Acts.Clear();
+
             var textLines = text.Split('\n','\r').ToList();
 
             foreach (var textLine in textLines)             

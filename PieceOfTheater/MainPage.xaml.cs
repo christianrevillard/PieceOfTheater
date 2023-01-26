@@ -1,4 +1,6 @@
-﻿using PieceOfTheater.Model;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PieceOfTheater.Model;
+using PieceOfTheater.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,23 +24,15 @@ namespace PieceOfTheater
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage :  Windows.UI.Xaml.Controls.Page
     {
+
+        //MainPage.xaml.cs 
         public MainPage()
         {
             this.InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var play = new Play();
-            play.Parse(Input.Text);
-
-            Ouput.Text =
-                $"Actes: {play.Acts.Count}\r\n" +
-                $"Scenes: {play.Acts.SelectMany(a=>a.Elements).Count()}\r\n" +
-                $"Personnages: {string.Join("; ",play.Acts.SelectMany(a => a.Elements.SelectMany(s=>s.Elements).Select(line=>line.Character)).Distinct())}\r\n" +
-                $"";
+            var container = ((App)App.Current).Container;
+            DataContext = ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(IMainViewModel));
         }
     }
 }
