@@ -16,12 +16,17 @@ namespace PieceOfTheater.DependencyInjection
         {
             var serviceCollection = new ServiceCollection();
 
-            // add the actual stuff.
-            serviceCollection.AddTransient<IMainViewModel, MainViewModel>();
             serviceCollection.AddSingleton<IPlayModel, Play>();
+
+            serviceCollection.AddTransient<IMainViewModel, MainViewModel>();
+
+            serviceCollection.AddTransient<IPlayTextViewModel, PlayTextViewModel>();
+            serviceCollection.AddTransient<IActsAndScenesViewModel, ActsAndScenesViewModel>();
+            serviceCollection.AddTransient<ICharactersViewModel, CharactersViewModel>();
+            serviceCollection.AddTransient<IScenesViewModel, ScenesViewModel>();
+            serviceCollection.AddTransient<ITableViewModel, TableViewModel>();
 
             return serviceCollection.BuildServiceProvider();
         }
-
     }
 }

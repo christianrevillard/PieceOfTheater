@@ -12,10 +12,14 @@ namespace PieceOfTheater.Model
         List<Character> Characters { get; }
         List<Act> Acts { get; }
         void Parse(string text);
+
+        event EventHandler TextParsed;
     }
 
     public class Play :IPlayModel
     {
+        public event EventHandler TextParsed;
+
         public string Title { get; set; }
         public List<Character> Characters { get; } = new List<Character>();
         public List<Act> Acts { get; } = new List<Act>();
@@ -58,6 +62,8 @@ namespace PieceOfTheater.Model
                 }
 
             }
+
+            TextParsed?.Invoke(this, new EventArgs());
 
             // parse line by line
             // ActeTitle?

@@ -1,1 +1,379 @@
-﻿
+﻿<?php
+header('Content-type: text/html; charset=utf-8');
+
+?>
+<head>
+<link rel="stylesheet" href="../compte-mots/style.css?ver=1">
+</head>
+
+<?php
+include_once "../compte-mots/play-data.php";
+
+$texte = isset($_POST["texte"]) ? $_POST["texte"] : "";
+
+if (isset($_POST["btnParse"])) 
+{
+    $CurrentPlayData = PlayData::ParseText($texte);
+} 
+else if (isset($_POST["parsedDetails"])) 
+{
+    $CurrentPlayData = unserialize(base64_decode($_POST["parsedDetails"]));
+}
+else
+{
+    // first call
+    $CurrentPlayData = new PlayData();        
+}
+
+$tab = 1;
+if (isset($_POST['btnParse']) ||  isset($_POST['btnSpeed']) || isset($_POST['btnDetails']))
+{
+    $tab = 3;
+}
+else if (isset($_POST['btnRepeter']) ||  isset($_POST['btnInverser']))
+{
+    $tab = 4;
+}
+ 
+?>
+		<form action="compte-mots.php" method="post" accept-charset="UTF-8">	
+
+<div class="tabset">
+    <input
+       type="radio"
+       name="tabset"
+       id="tabset_1"
+       aria-hidden="true"
+       <?php echo $tab==1?'checked="checked"':'';?>>
+    <input
+        type="radio"
+        name="tabset"
+        id="tabset_2"
+        aria-hidden="true"
+        <?php echo $tab==2?'checked="checked"':'';?>>
+    <input
+        type="radio"
+        name="tabset"
+        id="tabset_3"
+        aria-hidden="true"
+        <?php echo $tab==3?'checked="checked"':'';?>>
+    <input
+        type="radio"
+        name="tabset"
+        id="tabset_4"
+        aria-hidden="true"
+        <?php echo $tab==4?'checked="checked"':'';?>>
+    <input
+        type="radio"
+        name="tabset"
+        id="tabset_5"
+        aria-hidden="true"
+        <?php echo $tab==5?'checked="checked"':'';?>>
+  
+	<ul aria-hidden="true">
+        <li><label for="tabset_1">Texte</label></li>
+        <li><label for="tabset_2">Actes et sc&egrave;nes</label></li>
+        <li><label for="tabset_3">R&eacute;pliques</label></li>
+        <li><label for="tabset_4">Sc&egrave;nes jouables</label></li>
+        <li><label for="tabset_5">Table de r&eacute;p&eacute;tition</label></li>
+	</ul>
+
+
+	<div>
+   			<section>	
+    			<h2 class="tabsetHeader">Texte</h2>
+    			<p>
+					<textarea name="parsedDetails" rows="20" cols="60" style="display: none;"><?php echo base64_encode(serialize($CurrentPlayData));?></textarea>
+					<p>Texte de la pi&egrave;ce:</p>
+					<textarea name="texte" rows="20" cols="60"><?php echo $texte; ?></textarea>
+					<br /> 
+					<input type="submit" name="btnParse" value="Envoyer" />
+			    </p>
+   			</section>
+   			<section>
+    			<h2 class="tabsetHeader">Actes et sc&egrave;nes</h2>
+    			<p>
+        			<?php    
+                        $programmeDetails = "";
+                        foreach ($CurrentPlayData->Actes as $acte) 
+                        {
+                            $programmeDetails .= "<h3>" . $acte->DisplayString() . "</h3>";
+            
+                            foreach ($acte->Scenes as $scene) 
+                            {
+                                $programmeDetails .= $scene->DisplayString() . "<br/>";
+                            }
+                        }   
+        
+                        if (strlen($CurrentPlayData->Didascalies)>0)
+                        {
+                            $programmeDetails .= "<br/><br/><h3>Didascalies (ou titres/r&eacute;pliques non reconnus comme tels..)</h3>";
+                            $programmeDetails .= $CurrentPlayData->Didascalies;
+                        }
+            
+                        echo "<h1>Programme</h1>" . $programmeDetails;
+                    ?>
+                </p>
+   			</section>
+   			<section>
+			    <h2 class="tabsetHeader">R&eacute;pliques</h2>
+				<p>
+    				<?php     
+                        $motsParMinute = isset($_POST["speed"]) ? $_POST["speed"] : "150";
+            
+                		foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                		{
+                            $seconds = 1 + $personnage->Words / $motsParMinute * 60;
+                            $hours = floor($seconds / 3600);
+                            $mins = floor($seconds / 60 % 60);
+                            $secs = floor($seconds % 60);
+                            $time = $hours > 0 ? ($hours . " h ") : "";
+                            $time .= $mins > 0 ? ($mins . " min ") : "";
+                            $time .= ($secs > 0 || ($hours == 0 && $mins == 0)) ? ($secs . " s") : "";
+                        
+                            echo "<strong>" . $personnage->Name . "</strong> a ";
+                            echo $personnage->Repliques . " r&eacute;plique" . ($personnage->Repliques > 1 ? "s" : "") . " ";
+                            echo " et " . $personnage->Words . " mot" . ($personnage->Words > 1 ? "s" : "") . ", " . $time;
+                            echo " (entre les lignes " . $personnage->PremiereReplique . " et " . $personnage->DerniereReplique . ")<br/>";
+                        }
+                        echo "<br/>";
+                        $seconds = 1 + $CurrentPlayData->Words / $motsParMinute * 60;
+                            $hours = floor($seconds / 3600);
+                            $mins = floor($seconds / 60 % 60);
+                            $secs = floor($seconds % 60);
+                            $time = $hours > 0 ? ($hours . " h ") : "";
+                            $time .= $mins > 0 ? ($mins . " min ") : "";
+                            $time .= $secs > 0 ? ($secs . " s") : "";
+                        
+                        echo "<strong>Total</strong>: ";
+                        echo $CurrentPlayData->Repliques . " r&eacute;pliques ";
+                        echo " et " . $CurrentPlayData->Words . " mots, " . $time . "<br/>";    
+                    ?>
+  			      	<input type='text' style="width: 60px;" name='speed' value='<?php echo $motsParMinute; ?>' />
+  			      	<input type='submit' name='btnSpeed' value='Mots par minutes' /> 
+					<?php 
+                        $headerDone = false;
+                        foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                        {
+                            if (! $headerDone) 
+                            {
+                                ?><br /><br /> Voir les r&eacute;pliques de: <br /><?php
+	                		
+                                $headerDone = true;
+                            }
+                            ?><input type='submit' name='btnDetails' value='<?php echo $personnage->Name;?>' /><?php
+			            }
+    
+                        if (isset($_POST["btnDetails"])) 
+                        {
+                           foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                           {
+                                if ($personnage->Name == $_POST["btnDetails"]) 
+                                {
+                                    echo "<h1>Les r&eacute;pliques de " . $personnage->Name . "</h1>" . $personnage->Details;
+                                    break;
+                                }
+                            }
+                        }    
+                    ?>	
+				</p>
+   			</section>
+   			<section>
+			    <h2 class="tabsetHeader">Sc&egrave;nes jouables</h2>
+    			<p>    
+    			<?php 
+                    $scenesJouables = "";
+                    $scenesNonJouables = "";
+                    $scenesSansPersonnages = "";
+                    $repeterAvec = isset($_POST["cbxRepeter"]) ? $_POST["cbxRepeter"] : [];
+    
+                    if (isset($_POST["btnRepeter"]) || isset($_POST["btnInverser"])) 
+                    {
+                        if (isset($_POST["btnInverser"])) 
+                        {
+                            $inverse = [];
+                            foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                            {                                
+                                if (! in_array($personnage->Name, $repeterAvec)) 
+                                {
+                                    array_push($inverse, $personnage->Name);
+                                }
+                            }
+                            $repeterAvec = $inverse;
+                        }
+        
+                        foreach ($CurrentPlayData->Actes as $acte) 
+                        {
+                            foreach ($acte->Scenes as $scene) 
+                            {
+                                $acteDisplay = trim($acte->DisplayString());
+                                $sceneDisplay = trim($scene->DisplayString());
+                                $sceneLine = $acteDisplay . ((strlen($acteDisplay)>0 && strlen($sceneDisplay)>0)?", ":"") . $sceneDisplay;
+                                $sceneOk = "";
+                                $sceneMissing = "";
+                                $sceneJouable = true;
+                                
+                                foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                                {                                    
+                                    $isInScene = false;
+                                    foreach ($personnage->SceneKeys as $persoScene) 
+                                    {
+                                        if ($persoScene == $scene->FullKey()) 
+                                        {
+                                            $isInScene = true;
+                                            break;
+                                        }
+                                    }
+                                    
+                                    if ($isInScene && ! in_array($personnage->Name, $repeterAvec)) 
+                                    {
+                                        $sceneJouable = false;
+                                        if ($sceneMissing != "") 
+                                        {
+                                            $sceneMissing .= ", ";
+                                        }
+                                        $sceneMissing .= $personnage->Name;
+                                    }
+                                    
+                                    if ($isInScene && in_array($personnage->Name, $repeterAvec)) 
+                                    {
+                                        if ($sceneOk != "") 
+                                        {
+                                            $sceneOk .= ", ";
+                                        }
+                                        $sceneOk .= $personnage->Name;
+                                    }
+                                }
+                                
+                                if ($sceneJouable) 
+                                {
+                                    if(strlen($sceneOk)>0)
+                                    {
+                                        $scenesJouables .= $sceneLine . ": <strong>" . $sceneOk . "</strong><br/>";
+                                    }
+                                    else 
+                                    {
+                                        $scenesSansPersonnages.= $sceneLine . "<br/>";
+                                    }
+                                } 
+                                else 
+                                {
+                                    $scenesNonJouables .= "<del>" . $sceneLine . "</del>: il manque " . $sceneMissing . "<br/>";
+                                }
+                            }
+                        }
+                    }
+                    $headerDone = false;
+
+                    foreach ($CurrentPlayData->PlayCharacters as $personnage) 
+                    {
+                        if (! $headerDone) 
+                        {
+                              ?>
+                				R&eacute;p&eacute;ter avec: <input type='submit' name='btnRepeter'
+								value='Voir les sc&egrave;nes jouables' /> <input type='submit'
+								name='btnInverser' value='Inverser la s&eacute;lection' /> <br />
+	        	        	<?php
+                            $headerDone = true;
+                        }
+                        ?>	            
+			           <input type='checkbox' name='cbxRepeter[]' value='<?php echo $personnage->Name;?>'
+			           <?php echo ((count($repeterAvec)==0  && !isset($_POST['btnRepeter']) && !isset($_POST['btnInverser'])) || in_array($personnage->Name, $repeterAvec))?"checked='checked'":"" ?> /><?php echo $personnage->Name;?>                            
+	 					<?php 
+                    }
+                    
+                    echo "<br/><br/>";
+                    
+                        if (strlen($scenesJouables) > 0) 
+                        {
+                            echo "<strong>Sc&egrave;nes avec " . implode(", ", $repeterAvec) . " :</strong><br/>" . $scenesJouables . "<br/>";
+                        }
+                        if (strlen($scenesNonJouables) > 0) {
+                            echo "<strong>Sc&egrave;nes non jouables avec seulement " . implode(", ", $repeterAvec) . " :</strong><br/>" . $scenesNonJouables  . "<br/>";
+                        }
+                        if (strlen($scenesSansPersonnages) > 0) {
+                            echo "<strong>Sc&egrave;nes sans personnages !</strong><br/>" . $scenesSansPersonnages  . "<br/>";
+                        }
+                        ?>	
+    
+			    </p>
+   			</section>
+   			<section>
+                <h2 class="tabsetHeader">Table de r&eacute;p&eacute;tition</h2>
+                <p>
+					<?php 
+                        $lignes = 0;
+                        $maxScene = 30;
+                        $ActesHeader = [];
+                        $scenesHeader = [];
+                        $ligneScenes = [];
+                        $currentActeHeader = "";
+                        $currenScenesHeader = "";
+                        $currentScenes = [];
+                        
+                        foreach ($CurrentPlayData->Actes as $acte) {
+                            $scenesActe = [];
+                            $scenesActeHeader = "";
+                            
+                            foreach ($acte->Scenes as $scene) {
+                                array_push($scenesActe, $scene->FullKey());
+                                $scenesActeHeader .= "<th>" . $scene->GetKey() . "</th>";
+                            }
+                            
+                            if (count($currentScenes) + count($scenesActe) <= $maxScene) {
+                                $currentActeHeader .= "<th colspan='" . count($scenesActe) . "'>" . $acte->DisplayString() . "</th>";
+                                $currenScenesHeader .= $scenesActeHeader;
+                                
+                                foreach ($scenesActe as $sa) {
+                                    array_push($currentScenes, $sa);
+                                }
+                            } else {
+                                // need a new line
+                                $ActesHeader[$lignes] = $currentActeHeader;
+                                $scenesHeader[$lignes] = $currenScenesHeader;
+                                $ligneScenes[$lignes] = $currentScenes;
+                                $lignes ++;
+                                $currentActeHeader = "<th colspan='" . count($scenesActe) . "'>" . $acte->DisplayString() . "</th>";
+                                $currenScenesHeader = $scenesActeHeader;
+                                $currentScenes = $scenesActe;
+                            }
+                        }
+                        
+                        if (strlen($currentActeHeader) > 0) {
+                            $ActesHeader[$lignes] = $currentActeHeader;
+                            $scenesHeader[$lignes] = $currenScenesHeader;
+                            $ligneScenes[$lignes] = $currentScenes;
+                            $lignes ++;
+                        }
+                        
+                        if ($lignes > 0) {
+                            for ($i = 0; $i <= $lignes - 1; $i ++) {
+                                echo "<table class='role-table'>";
+                                echo "<tr><td></td>" . $ActesHeader[$i] . "</tr>";
+                                echo "<tr class='trrole'><td class='role'></td>" . $scenesHeader[$i] . "</tr>";
+                                echo "<tr class='trrole2'><td></td>" . $scenesHeader[$i] . "</tr>";
+                                
+                                // liste de personnages...
+                                
+                                foreach ($CurrentPlayData->PlayCharacters as $personnage) {
+                                    
+                                    $ligne = "";
+                                    
+                                    foreach ($ligneScenes[$i] as $sceneCol) {
+                                        if (in_array($sceneCol, $personnage->SceneKeys)) {
+                                            $ligne .= "<td>X</td>";
+                                        } else {
+                                            $ligne .= "<td></td>";
+                                        }
+                                    }
+                                    echo "<tr class='trrole'><td>" . $personnage->Name . "</td>" . $ligne . "</tr>";
+                                }
+                                echo "</table><br/>";
+                            }
+                        }                            
+                    ?>
+    			</p>
+   			</section>
+	</div>
+</div>
+		</form>
