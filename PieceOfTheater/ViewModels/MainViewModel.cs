@@ -80,6 +80,99 @@ Gai (expressif): ben non.";
                 });
             }
         }
+
+        private Visibility _mainVisibility = Visibility.Visible;
+        public Visibility MainVisibility { get { return _mainVisibility; } set { Set(ref _mainVisibility, value); } }
+
+        private Visibility _actsAndScenesVisibility = Visibility.Collapsed;
+        public Visibility ActsAndScenesVisibility { get { return _actsAndScenesVisibility; } set { Set(ref _actsAndScenesVisibility, value); } }
+
+        private Visibility _charactersVisibility = Visibility.Collapsed;
+        public Visibility CharactersVisibility { get { return _charactersVisibility; } set { Set(ref _charactersVisibility, value); } }
+
+        private Visibility _scenesVisibility = Visibility.Collapsed;
+        public Visibility ScenesVisibility { get { return _scenesVisibility; } set { Set(ref _scenesVisibility, value); } }
+
+        private Visibility _tableVisibility = Visibility.Collapsed;
+        public Visibility TableVisibility { get { return _tableVisibility; } set { Set(ref _tableVisibility, value); } }
+
+        private void CloseAll() {
+            MainVisibility = Visibility.Collapsed;
+            ActsAndScenesVisibility = Visibility.Collapsed;
+            CharactersVisibility = Visibility.Collapsed;
+            ScenesVisibility = Visibility.Collapsed;
+            TableVisibility = Visibility.Collapsed;
+        }
+        public ICommand OpenMain
+        {
+            get
+            {
+                return new RelayCommand(
+                    obj => { return true; },
+                    obj =>
+                    {
+                        CloseAll();
+                        MainVisibility = Visibility.Visible;
+                    });
+            }
+        }
+
+        public ICommand OpenActAndScenes
+        {
+            get
+            {
+                return new RelayCommand(
+                    obj => { return true; },
+                    obj =>
+                    {
+                        CloseAll();
+                        ActsAndScenesVisibility = Visibility.Visible;
+                    });
+            }
+        }
+
+        public ICommand OpenCharacters
+        {
+            get
+            {
+                return new RelayCommand(
+                    obj => { return true; },
+                    obj =>
+                    {
+                        CloseAll();
+                        CharactersVisibility = Visibility.Visible;
+                    });
+            }
+        }
+
+        public ICommand OpenScenes
+        {
+            get
+            {
+                return new RelayCommand(
+                    obj => { return true; },
+                    obj =>
+                    {
+                        CloseAll();
+                        ScenesVisibility = Visibility.Visible;
+                    });
+            }
+        }
+
+        public ICommand OpenTable
+        {
+            get
+            {
+                return new RelayCommand(
+                    obj => { return true; },
+                    obj =>
+                    {
+                        CloseAll();
+                        TableVisibility = Visibility.Visible;
+                    });
+            }
+        }
+
     }
 
     public class RelayCommand : ICommand
@@ -104,6 +197,8 @@ Gai (expressif): ben non.";
             _execute(parameter);
         }
     }
+
+
     //private void Button_Click(object sender, RoutedEventArgs e)
     //{
     //    var play = new Play();

@@ -9,18 +9,31 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <TextBox Text="Testing main page" IsReadOnly="true"></TextBox>
-
-        <TextBox Text="TODO - Text parse" IsReadOnly="true"></TextBox>
-        <TextBox Text="Actes et scènes - liste + didascalie (feil title)" IsReadOnly="true"></TextBox>
-        <TextBox Text="Répliques - stats + repliques par personnage" IsReadOnly="true"></TextBox>
-        <TextBox Text="Scènes jouables" IsReadOnly="true"></TextBox>
-        <TextBox Text="Tables de répétition" IsReadOnly="true"></TextBox>
-        <TextBox TextWrapping="Wrap" Text="TextBox"/>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604"/>
-            <TextBox x:Name="Ouput" Height="457" TextWrapping="Wrap" Text="{Binding Output}" Width="799"/>
+            <Button Content="Texte" Command="{Binding OpenMain}"></Button>
+            <Button Content="Actes et scènes" Command="{Binding OpenActAndScenes}"></Button>
+            <Button Content="Personnages et Répliques" Command="{Binding OpenCharacters}"></Button>
+            <Button Content="Scènes jouables" Command="{Binding OpenScenes}"></Button>
+            <Button Content="Tables de répétition" Command="{Binding OpenTable}"></Button>
         </StackPanel>
-        <Button Content="Button" Height="152" Width="340" Command="{Binding Process}"/>
+        <StackPanel Visibility="{Binding MainVisibility}">
+            <StackPanel Orientation="Horizontal" >
+                <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604"/>
+                <TextBox x:Name="Ouput" Height="457" TextWrapping="Wrap" Text="{Binding Output}" Width="799"/>
+            </StackPanel>
+            <Button Content="Button" Height="152" Width="340" Command="{Binding Process}"/>
+       </StackPanel>
+        <StackPanel Visibility="{Binding ActsAndScenesVisibility}">
+            <TextBlock Text="Actes et scènes - TODO"></TextBlock>
+        </StackPanel>
+        <StackPanel Visibility="{Binding CharactersVisibility}">
+            <TextBlock Text="Personnages/Répliques - TODO"></TextBlock>
+        </StackPanel>
+        <StackPanel Visibility="{Binding ScenesVisibility}">
+            <TextBlock Text="Scènes jouables- TODO"></TextBlock>
+        </StackPanel>
+        <StackPanel Visibility="{Binding TableVisibility}">
+            <TextBlock Text="Table de répet- TODO"></TextBlock>
+        </StackPanel>
     </StackPanel>
 </Page>
