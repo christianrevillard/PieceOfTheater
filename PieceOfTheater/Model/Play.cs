@@ -9,7 +9,7 @@ namespace PieceOfTheater.Model
 {
     public interface IPlayModel {
         string Title { get; }
-        List<Character> Characters { get; }
+//        List<Character> Characters { get; }
         List<Act> Acts { get; }
         void Parse(string text);
 

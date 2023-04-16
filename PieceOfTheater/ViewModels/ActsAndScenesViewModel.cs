@@ -1,5 +1,6 @@
 ﻿using PieceOfTheater.Model;
 using System.Linq;
+using System.Text;
 
 namespace PieceOfTheater.ViewModels
 {
@@ -18,11 +19,30 @@ namespace PieceOfTheater.ViewModels
 
             _model.TextParsed += (source, e) =>
             {
+                StringBuilder output = new StringBuilder();
 
-                Output = $"Actes: {_model.Acts.Count}\r\n" +
-        $"Scenes: {_model.Acts.SelectMany(a => a.Elements).Count()}\r\n" +
-        $"Personnages: {string.Join("; ", _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements).Select(line => line.Character)).Distinct())}\r\n" +
-        $"";
+                output.Append($"Actes: {_model.Acts.Count}\r\n" +
+$"Scenes: {_model.Acts.SelectMany(a => a.Elements).Count()}\r\n" +
+$"Personnages: {string.Join("; ", _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements).Select(line => line.Character)).Distinct())}\r\n" +
+$"");
+                output.Append(System.Environment.NewLine);
+                output.Append(System.Environment.NewLine);
+
+
+                _model.Acts.ForEach(a =>
+                {
+                    output.Append($"Acte: {a.Title}");
+                    output.Append(System.Environment.NewLine);
+                    a.Elements.ForEach(s =>
+                    {
+                        output.Append($"Scene: {s.Title}");
+                        output.Append(System.Environment.NewLine);
+                    });
+                    output.Append(System.Environment.NewLine);
+                });
+
+                Output = output.ToString();
+
             };
         }
 

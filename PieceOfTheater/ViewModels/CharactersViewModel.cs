@@ -1,5 +1,6 @@
 ﻿using PieceOfTheater.Model;
 using System.Linq;
+using System.Text;
 
 namespace PieceOfTheater.ViewModels
 {
@@ -17,11 +18,28 @@ namespace PieceOfTheater.ViewModels
 
             _model.TextParsed += (source, e) =>
             {
+                var parsed = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements.Select(line => new { Scene = s, Line = line })).Select(line => 
+                    new
+                    {
+                        Character = line.Line.Character,
+                        Line = line.Line,
+                        Scene = line.Scene,
+                        Act = a
+                    }));
 
-                Output = $"Actes: {_model.Acts.Count}\r\n" +
-        $"Scenes: {_model.Acts.SelectMany(a => a.Elements).Count()}\r\n" +
-        $"Personnages: {string.Join("; ", _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements).Select(line => line.Character)).Distinct())}\r\n" +
-        $"";
+                StringBuilder output = new StringBuilder();
+
+                foreach (var group in parsed.GroupBy(p => p.Character)) 
+                {
+                    output.Append(group.Key);
+                    output.Append(": ");
+                    output.Append(System.Environment.NewLine);
+                    output.Append($"{group.Count()} répliques dans {group.Select(a=>a.Scene).Distinct().Count()} scènes");
+                    output.Append(System.Environment.NewLine);
+                    output.Append(System.Environment.NewLine);
+                }
+
+                Output = output.ToString();
             };
 
         }
