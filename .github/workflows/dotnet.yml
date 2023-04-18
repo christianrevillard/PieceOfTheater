@@ -26,6 +26,8 @@ jobs:
          msbuild-architecture: x64
     - name: MsBuild 
       run: msbuild PieceOfTheater.sln -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
+    - name: TEst1
+      run: VSTest.Console PieceOfTheater.sln
     #- name: Build Uwp 
     #  run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
     #- name: Restore dependencies .Net
