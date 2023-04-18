@@ -20,12 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
     - name: Restore dependencies
       run: dotnet restore
     - name: Build1    
-      run: msbuild PieceOfTheater.sln
+      run: msbuild PieceOfTheater.sln -t:rebuild -verbosity:diag -property:Configuration=Release
     - name: Build    
       run: dotnet build --no-restore
     - name: Test
