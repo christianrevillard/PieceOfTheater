@@ -26,13 +26,12 @@ jobs:
          msbuild-architecture: x64
     - name: Restore dependencies Uwp 
       run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    - name: Restore dependencies Lib
-      run: dotnet restore PieceOfTheater.Lib/PieceOfTheater.Lib.csproj
-    - name: Restore dependencies Wpf
-      run: dotnet restore PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj
+    - name: Restore dependencies .Net
+      run: dotnet restore
     #- name: Build1    
     #  run: msbuild PieceOfTheater.sln -t:restore -t:rebuild -verbosity:diag -property:Configuration=Release
     - name: Build    
-      run: dotnet build --no-restore
+      run: msbuild PieceOfTheater.sln -verbosity:diag -property:Configuration=Release -property:Platform=x64
+    #run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
