@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PieceofTheater.Lib.ViewModels;
-using System.Windows.Controls;
 using PieceofTheater.Lib.DependencyInjection;
+using PieceofTheater.Lib.ViewModels;
+using Windows.UI.Xaml.Controls;
 
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace PieceOfTheater.Wpf.Views
+namespace PieceOfTheater.Uwp.Views
 {
     public sealed partial class Scenes : UserControl
     {
         public Scenes()
         {
             this.InitializeComponent();
-            var container = ApplicationServiceProvider.Instance;// ((App)App.Current).;
+            var container = ApplicationServiceProvider.Instance;
             DataContext = ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(IScenesViewModel));
         }
     }

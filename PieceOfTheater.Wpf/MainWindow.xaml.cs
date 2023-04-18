@@ -13,8 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PieceofTheater.DependencyInjection;
-using PieceofTheater.ViewModels;
+using PieceofTheater.Lib.DependencyInjection;
+using PieceofTheater.Lib.ViewModels;
 
 namespace PieceofTheater
 {
