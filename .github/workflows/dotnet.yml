@@ -27,9 +27,9 @@ jobs:
     - name: Restore UWP project   
       run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release
     - name: Restore dependencies
-      run: dotnet restore -p:RestoreUseSkipNonexistentTargets="false"
-    - name: Build1    
-      run: msbuild PieceOfTheater.sln -t:restore -t:rebuild -verbosity:diag -property:Configuration=Release
+      run: dotnet restore
+    #- name: Build1    
+    #  run: msbuild PieceOfTheater.sln -t:restore -t:rebuild -verbosity:diag -property:Configuration=Release
     - name: Build    
       run: dotnet build --no-restore
     - name: Test
