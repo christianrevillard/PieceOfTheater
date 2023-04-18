@@ -27,7 +27,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build1    
-      run: msbuild PieceOfTheater.sln -t:rebuild -verbosity:diag -property:Configuration=Release
+      run: msbuild -restore PieceOfTheater.sln -t:rebuild -verbosity:diag -property:Configuration=Release
     - name: Build    
       run: dotnet build --no-restore
     - name: Test
