@@ -24,14 +24,14 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
       with:
          msbuild-architecture: x64
-    - name: Restore dependencies Uwp 
-      run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    - name: Restore dependencies .Net
-      run: dotnet restore
-    #- name: Build1    
-    #  run: msbuild PieceOfTheater.sln -t:restore -t:rebuild -verbosity:diag -property:Configuration=Release
-    - name: Build    
-      run: msbuild PieceOfTheater.sln -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    #run: dotnet build --no-restore
+    - name: MsBuild 
+      run: msbuild PieceOfTheater.sln -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
+    #- name: Build Uwp 
+    #  run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
+    #- name: Restore dependencies .Net
+    #  run: dotnet restore
+    #- name: Build    
+    #  run: msbuild PieceOfTheater.sln -verbosity:diag -property:Configuration=Release -property:Platform=x64
+    ##run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
