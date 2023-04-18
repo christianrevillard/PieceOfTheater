@@ -16,24 +16,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       with:
          msbuild-architecture: x64
-    - name: MsBuild 
-      run: msbuild PieceOfTheater.sln -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    - name: TEst1
-      run: VSTest.Console PieceOfTheater.sln
-    #- name: Build Uwp 
-    #  run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    #- name: Restore dependencies .Net
-    #  run: dotnet restore
-    #- name: Build    
-    #  run: msbuild PieceOfTheater.sln -verbosity:diag -property:Configuration=Release -property:Platform=x64
-    ##run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test PieceOfTheater.Lib.Tests/PieceOfTheater.Lib.Tests.csproj -c Release --no-build --verbosity normal
+    
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1.2
+      
+    - name: Restore packages
+      run: msbuild PieceOfTheater.sln -property:Configuration=Release -property:Platform=x64 -t:restore
+
+    - name: Release build
+      run: msbuild PieceOfTheater.sln -property:Configuration=Release -property:Platform=x64
+      
+    - name: VSTest
+      run: vstest.console.exe /Platform:x64 PieceOfTheater.sln
+  
+    #- name: Test
+    #  run: dotnet test PieceOfTheater.Lib.Tests/PieceOfTheater.Lib.Tests.csproj -c Release --no-build --verbosity normal
