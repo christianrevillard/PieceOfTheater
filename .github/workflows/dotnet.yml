@@ -25,7 +25,7 @@ jobs:
       with:
          msbuild-architecture: x64
     - name: Restore dependencies
-      run: dotnet restore -p:RestoreUseSkipNonexistentTargets="false"
+      run: dotnet restore PieceOfTheater.Lib/PieceOfTheater.Lib.csproj
     - name: Restore UWP project   
       run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -verbosity:diag -property:Configuration=Release -property:Platform=x64
     #- name: Build1    
