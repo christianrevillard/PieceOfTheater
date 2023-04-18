@@ -30,11 +30,8 @@ jobs:
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1.2
       
-    - name: Restore packages
-      run: msbuild PieceOfTheater.sln -property:Configuration=Release -property:Platform=x64 -t:restore
-
-    - name: Release build
-      run: msbuild PieceOfTheater.sln -property:Configuration=Release -property:Platform=x64
+    - name: MsBuild 
+      run: msbuild PieceOfTheater.sln -t:restore -verbosity:diag -property:Configuration=Release -property:Platform=x64
       
     - name: VSTest
       run: vstest.console.exe /Platform:x64 PieceOfTheater.sln
