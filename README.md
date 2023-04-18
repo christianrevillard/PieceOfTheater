@@ -1,2 +1,2 @@
 # PieceOfTheater
-## testing merging rule 3
+## testing merging rule 6
