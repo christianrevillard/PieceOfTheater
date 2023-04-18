@@ -24,9 +24,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
       with:
          msbuild-architecture: x64
-    - name: Restore dependencies
-      run: dotnet restore PieceOfTheater.Lib/PieceOfTheater.Lib.csproj PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj
-    - name: Restore UWP project   
+    - name: Restore dependencies Lib
+      run: dotnet restore PieceOfTheater.Lib/PieceOfTheater.Lib.csproj
+    - name: Restore dependencies Wpf
+      run: dotnet restore PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj
+    - name: Restore dependencies Uwp 
       run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -verbosity:diag -property:Configuration=Release -property:Platform=x64
     #- name: Build1    
     #  run: msbuild PieceOfTheater.sln -t:restore -t:rebuild -verbosity:diag -property:Configuration=Release
