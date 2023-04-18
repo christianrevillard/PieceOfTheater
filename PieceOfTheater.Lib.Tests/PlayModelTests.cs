@@ -1,4 +1,4 @@
-using PieceofTheater.Model;
+using PieceofTheater.Lib.Model;
 
 namespace PieceOfTheater.Lib.Tests
 {
