@@ -23,7 +23,7 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
       with:
-         msbuild-architecture: x64
+        vs-version: '[16.5,)'
     - name: Restore UWP project   
       run: msbuild PieceOfTheater.Uwp/PieceOfTheater.Uwp.csproj -t:restore -verbosity:diag -property:Configuration=Release
     - name: Restore dependencies
