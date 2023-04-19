@@ -104,8 +104,8 @@ namespace PieceofTheater.Lib.ViewModels
 
         private List<CharacterDetails> _characters = new List<CharacterDetails>();
         public List<CharacterDetails> Characters { get { return _characters; } set { Set(ref _characters, value); } }
-        public CharacterDetails SelectedCharacter { get; private set; }
-
+        private CharacterDetails _selectedCharacter;
+        public CharacterDetails SelectedCharacter { get { return _selectedCharacter; } private set { Set(ref _selectedCharacter, value); } }
         private ICommand _selectCharacter;
 
         public ICommand SelectCharacter

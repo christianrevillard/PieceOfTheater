@@ -14,9 +14,59 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Test" Command="{Binding Test}"></Button>
                         <Button Content="{Binding Path=CharacterName}" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
 AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" CommandParameter="{Binding Path=CharacterName}"></Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <Label Content="{Binding SelectedCharacter.CharacterName}"></Label>
+        <ItemsControl ItemsSource="{Binding SelectedCharacter.CharacterRole}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Title}"></Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="    "></Label>
+                            <ItemsControl ItemsSource="{Binding Elements}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="{Binding Title}"></Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="    "></Label>
+                                                <ItemsControl ItemsSource="{Binding Elements}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Label Content="{Binding Comment}"></Label>
+                                                                <Label Content="{Binding Text}"></Label>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -26,6 +76,6 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        
+
     </StackPanel>
 </UserControl>
