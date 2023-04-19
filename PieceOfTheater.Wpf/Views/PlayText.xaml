@@ -11,8 +11,6 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal" >
             <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604"/>
-            <TextBox x:Name="Ouput" Height="457" TextWrapping="Wrap" Text="{Binding Output}" Width="799"/>
         </StackPanel>
-        <Button Content="Button" Height="152" Width="340" Command="{Binding Process}"/>
     </StackPanel>
 </UserControl>

@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using PieceofTheater.Lib.Model;
 using PieceofTheater.Lib.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+using PieceOfTheater.Lib.MVVM;
 
 namespace PieceofTheater.Lib.DependencyInjection
 {
@@ -20,6 +15,7 @@ namespace PieceofTheater.Lib.DependencyInjection
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton<IPlayModel, Play>();
+            serviceCollection.AddSingleton<IMediator, Mediator>();
 
             serviceCollection.AddTransient<IMainViewModel, MainViewModel>();
 

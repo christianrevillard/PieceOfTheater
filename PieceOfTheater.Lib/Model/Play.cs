@@ -1,4 +1,5 @@
 ﻿
+using PieceofTheater.Lib.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,12 @@ namespace PieceofTheater.Lib.Model
 {
     public interface IPlayModel {
         string Title { get; }
-//        List<Character> Characters { get; }
         List<Act> Acts { get; }
         void Parse(string text);
-
-        event EventHandler TextParsed;
     }
 
     public class Play :IPlayModel
     {
-        public event EventHandler TextParsed;
-
         public string Title { get; set; }
         public List<Character> Characters { get; } = new List<Character>();
         public List<Act> Acts { get; } = new List<Act>();
@@ -58,17 +54,7 @@ namespace PieceofTheater.Lib.Model
                     // handle adding lines directly to Act (Prologue..., act with one unnamed scene)
                     Acts.Last().Elements.Last().Elements.Add(new Line(lineRegex, textLine));
                 }
-
             }
-
-            TextParsed?.Invoke(this, new EventArgs());
-
-            // parse line by line
-            // ActeTitle?
-            // SceneTitle? or no scene...
-            // CharacterLine
-            // Didascalie
-
         }
     }
 }

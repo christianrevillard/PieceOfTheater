@@ -1,4 +1,5 @@
 ﻿using PieceofTheater.Lib.Model;
+using PieceOfTheater.Lib.MVVM;
 using System.Linq;
 using System.Text;
 
@@ -8,42 +9,43 @@ namespace PieceofTheater.Lib.ViewModels
     {
     }
 
-
     internal class ActsAndScenesViewModel : BaseViewModel, IActsAndScenesViewModel
     {
         IPlayModel _model;
 
-        public ActsAndScenesViewModel(IPlayModel playModel)
+        public ActsAndScenesViewModel(IPlayModel playModel, IMediator mediator) : base(mediator)
         {
             _model = playModel;
+        }
 
-            _model.TextParsed += (source, e) =>
-            {
-                StringBuilder output = new StringBuilder();
+        public override void OnAppearing()
+        {
+            base.OnAppearing();
 
-                output.Append($"Actes: {_model.Acts.Count}\r\n" +
+            StringBuilder output = new StringBuilder();
+
+            output.Append($"Actes: {_model.Acts.Count}\r\n" +
 $"Scenes: {_model.Acts.SelectMany(a => a.Elements).Count()}\r\n" +
 $"Personnages: {string.Join("; ", _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements).Select(line => line.Character)).Distinct())}\r\n" +
 $"");
-                output.Append(System.Environment.NewLine);
-                output.Append(System.Environment.NewLine);
+            output.Append(System.Environment.NewLine);
+            output.Append(System.Environment.NewLine);
 
 
-                _model.Acts.ForEach(a =>
+            _model.Acts.ForEach(a =>
+            {
+                output.Append($"Acte: {a.Title}");
+                output.Append(System.Environment.NewLine);
+                a.Elements.ForEach(s =>
                 {
-                    output.Append($"Acte: {a.Title}");
-                    output.Append(System.Environment.NewLine);
-                    a.Elements.ForEach(s =>
-                    {
-                        output.Append($"Scene: {s.Title}");
-                        output.Append(System.Environment.NewLine);
-                    });
+                    output.Append($"Scene: {s.Title}");
                     output.Append(System.Environment.NewLine);
                 });
+                output.Append(System.Environment.NewLine);
+            });
 
-                Output = output.ToString();
+            Output = output.ToString();
 
-            };
         }
 
         private string _output = "";

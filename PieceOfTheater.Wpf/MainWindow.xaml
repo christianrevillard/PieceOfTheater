@@ -14,20 +14,10 @@
             <Button Content="Scènes jouables" Command="{Binding OpenScenes}"></Button>
             <Button Content="Tables de répétition" Command="{Binding OpenTable}"></Button>
         </StackPanel>
-        <StackPanel Visibility="{Binding PlayTextVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-            <views:PlayText></views:PlayText>
-        </StackPanel>
-        <StackPanel Visibility="{Binding ActsAndScenesVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-            <views:ActsAndScenes></views:ActsAndScenes>
-        </StackPanel>
-        <StackPanel Visibility="{Binding CharactersVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-            <views:Characters></views:Characters>
-        </StackPanel>
-        <StackPanel Visibility="{Binding ScenesVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-            <views:Scenes></views:Scenes>
-        </StackPanel>
-        <StackPanel Visibility="{Binding TableVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-            <views:Table></views:Table>
-        </StackPanel>
+        <views:PlayText Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:PlayText>
+        <views:ActsAndScenes Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:ActsAndScenes>
+        <views:Characters Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Characters>
+        <views:Scenes Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Scenes>
+        <views:Table Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Table>
     </StackPanel>
 </Window>

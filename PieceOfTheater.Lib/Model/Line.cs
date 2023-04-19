@@ -13,6 +13,8 @@ namespace PieceofTheater.Lib.Model
         public string Comment { get; set; }
         public string Text { get; set; }
 
+        public Line() { }
+
         public Line(string regexPattern, string line)
         {
             Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
