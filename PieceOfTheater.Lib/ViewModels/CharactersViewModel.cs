@@ -22,7 +22,6 @@ namespace PieceofTheater.Lib.ViewModels
         List<CharacterDetails> Characters { get; }
         CharacterDetails SelectedCharacter { get; }
         ICommand SelectCharacter { get; }
-//        void SelectCharacter(string characterName);
     }
 
     internal class CharactersViewModel : BaseViewModel, ICharactersViewModel

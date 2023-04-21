@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace PieceofTheater.Lib.Model
 {
@@ -12,7 +7,7 @@ namespace PieceofTheater.Lib.Model
         public string Character { get; set; }
         public string Comment { get; set; }
         public string Text { get; set; }
-
+ 
         public Line() { }
 
         public Line(string regexPattern, string line)

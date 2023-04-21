@@ -1,5 +1,6 @@
 ﻿using PieceofTheater.Lib.Model;
 using PieceOfTheater.Lib.MVVM;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -18,38 +19,14 @@ namespace PieceofTheater.Lib.ViewModels
             _model = playModel;
         }
 
+        private List<Act> _acts = new List<Act>();
+        public List<Act> Acts { get { return _acts; } set { Set(ref _acts, value);  } }
+
         public override void OnAppearing()
         {
             base.OnAppearing();
 
-            StringBuilder output = new StringBuilder();
-
-            output.Append($"Actes: {_model.Acts.Count}\r\n" +
-$"Scenes: {_model.Acts.SelectMany(a => a.Elements).Count()}\r\n" +
-$"Personnages: {string.Join("; ", _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements).Select(line => line.Character)).Distinct())}\r\n" +
-$"");
-            output.Append(System.Environment.NewLine);
-            output.Append(System.Environment.NewLine);
-
-
-            _model.Acts.ForEach(a =>
-            {
-                output.Append($"Acte: {a.Title}");
-                output.Append(System.Environment.NewLine);
-                a.Elements.ForEach(s =>
-                {
-                    output.Append($"Scene: {s.Title}");
-                    output.Append(System.Environment.NewLine);
-                });
-                output.Append(System.Environment.NewLine);
-            });
-
-            Output = output.ToString();
-
+            Acts = _model.Acts;
         }
-
-        private string _output = "";
-        public string Output { get { return _output; } set { Set(ref _output, value); } }
-
     }
 }

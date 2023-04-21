@@ -9,8 +9,60 @@
     d:DesignWidth="400">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding Output}"></TextBlock>
-        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Acts}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Title}"></Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="    "></Label>
+                            <ItemsControl ItemsSource="{Binding Elements}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="{Binding Title}"></Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="    "></Label>
+                                                <ItemsControl ItemsSource="{Binding Elements}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Label Content="{Binding Character}" Width="50"></Label>
+                                                                    <Label Content="{Binding Comment}"></Label>
+                                                                    <Label Content=": "></Label>
+                                                                    <Label Content="{Binding Text}"></Label>
+                                                                </StackPanel>
+
+
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 </UserControl>
