@@ -20,7 +20,7 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                                 <Run Text="{Binding WordCount}"/>
                                 <Run Text="mots en "/>
                                 <Run Text="{Binding LineCount}"/>
-                                <Run Text="lignes et "/>
+                                <Run Text="répliques et "/>
                                 <Run Text="{Binding SceneCount}"/>
                                 <Run Text="scènes."/>
                             </TextBlock>
@@ -33,6 +33,28 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+
+        <Label Content=""></Label>
+
+        <TextBlock>
+            <Run Text="Total: "/>            
+            <Run Text="{Binding TotalWordCount}"/>
+            <Run Text="mots en "/>
+            <Run Text="{Binding TotalLinesCount}"/>
+            <Run Text="répliques et "/>
+            <Run Text="{Binding TotalSceneCount}"/>
+            <Run Text="scènes, pour une durée de "/>
+            <Run Text="{Binding TotalTime}"/>
+        </TextBlock>
+
+        <Label Content=""></Label>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox Width="50" Text="{Binding WordsPerMinute}" Margin="0 0 10 0"/>
+            <TextBlock>
+                <Run Text="mots par minute."/>            
+            </TextBlock>
+        </StackPanel>
 
         <Label Content="{Binding SelectedCharacter.CharacterName}"></Label>
         <ItemsControl ItemsSource="{Binding SelectedCharacter.CharacterRole}">

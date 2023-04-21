@@ -3,6 +3,7 @@ using PieceofTheater.Lib.Model;
 using PieceOfTheater.Lib.MVVM;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 
 namespace PieceofTheater.Lib.ViewModels
@@ -31,32 +32,7 @@ namespace PieceofTheater.Lib.ViewModels
         public CharactersViewModel(IPlayModel playModel, IMediator mediator):base(mediator)
         {
            _model = playModel;
-
-            //_model.TextParsed += (source, e) =>
-            //{
-            //    var parsed = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements.Select(line => new { Scene = s, Line = line })).Select(line => 
-            //        new
-            //        {
-            //            Character = line.Line.Character,
-            //            Line = line.Line,
-            //            Scene = line.Scene,
-            //            Act = a
-            //        }));
-
-            //    StringBuilder output = new StringBuilder();
-
-            //    foreach (var group in parsed.GroupBy(p => p.Character)) 
-            //    {
-            //        output.Append(group.Key);
-            //        output.Append(": ");
-            //        output.Append(System.Environment.NewLine);
-            //        output.Append($"{group.Count()} répliques dans {group.Select(a=>a.Scene).Distinct().Count()} scènes");
-            //        output.Append(System.Environment.NewLine);
-            //        output.Append(System.Environment.NewLine);
-            //    }
-
-            //    Output = output.ToString();
-            //};        
+           
        }
 
         public override void OnAppearing()
@@ -100,12 +76,21 @@ namespace PieceofTheater.Lib.ViewModels
             }
 
             Characters = characters;
+
+            TotalWordCount = Characters.Sum(c => c.WordCount);
+            TotalLinesCount = Characters.Sum(c => c.LineCount);
+            TotalSceneCount = Characters.Sum(c => c.SceneCount);
+            UpdateTotalTime();
         }
 
         private List<CharacterDetails> _characters = new List<CharacterDetails>();
+
         public List<CharacterDetails> Characters { get { return _characters; } set { Set(ref _characters, value); } }
+
         private CharacterDetails _selectedCharacter;
+
         public CharacterDetails SelectedCharacter { get { return _selectedCharacter; } private set { Set(ref _selectedCharacter, value); } }
+
         private ICommand _selectCharacter;
 
         public ICommand SelectCharacter
@@ -120,6 +105,47 @@ namespace PieceofTheater.Lib.ViewModels
                     }));
             }
         }
-    }
 
+        private int _totalWordCount;
+        public int TotalWordCount { get { return _totalWordCount; } set { Set(ref _totalWordCount, value); } }
+
+        private int _totalLinesCount;
+        public int TotalLinesCount { get { return _totalLinesCount; } set { Set(ref _totalLinesCount, value); } }
+
+        private int _totalSceneCount;
+        public int TotalSceneCount { get { return _totalSceneCount; } set { Set(ref _totalSceneCount, value); } }
+
+        private string _totalTime ;
+        public string TotalTime { get { return _totalTime; } set { Set(ref _totalTime, value); } }
+
+        private int _wordsPerMinute = 150;
+        public int WordsPerMinute { get { return _wordsPerMinute; } set { Set(ref _wordsPerMinute, value); UpdateTotalTime(); } }
+
+        private void UpdateTotalTime()
+        {
+            if (WordsPerMinute <= 0)
+                return;
+
+            int totalSeconds = TotalWordCount*60/WordsPerMinute;
+            int hours = totalSeconds/3600;
+            int minutes = (totalSeconds%3600) / 60;
+            int seconds= (totalSeconds%60);
+
+            StringBuilder time= new StringBuilder();
+            if (hours > 0) 
+            {
+                time.Append($"{hours} heure{(hours > 1 ? "s" : "")} ");
+            }
+            if (minutes > 0)
+            {
+                time.Append($"{minutes} minute{(minutes > 1 ? "s" : "")} ");
+            }
+            if (seconds > 0)
+            {
+                time.Append($"{seconds} seconde{(seconds> 1 ? "s" : "")} ");
+            }
+
+            TotalTime = time.ToString();
+        }
+    }
 }

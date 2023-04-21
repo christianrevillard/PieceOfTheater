@@ -7,13 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000">
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Texte" Command="{Binding OpenPlayText}"></Button>
-            <Button Content="Actes et scènes" Command="{Binding OpenActAndScenes}"></Button>
-            <Button Content="Personnages et Répliques" Command="{Binding OpenCharacters}"></Button>
-            <Button Content="Scènes jouables" Command="{Binding OpenScenes}"></Button>
-            <Button Content="Tables de répétition" Command="{Binding OpenTable}"></Button>
+        <StackPanel Orientation="Horizontal" Margin="0 0 5 0">
+            <Button Content="Texte" Command="{Binding OpenPlayText}" Margin="0 0 5 0"></Button>
+            <Button Content="Actes et scènes" Command="{Binding OpenActAndScenes}" Margin="0 0 5 0"></Button>
+            <Button Content="Personnages et Répliques" Command="{Binding OpenCharacters}" Margin="0 0 5 0"></Button>
+            <Button Content="Scènes jouables" Command="{Binding OpenScenes}" Margin="0 0 5 0"></Button>
+            <Button Content="Tables de répétition" Command="{Binding OpenTable}" Margin="0 0 5 0"></Button>
         </StackPanel>
+        <Label Content=""></Label>
         <views:PlayText Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:PlayText>
         <views:ActsAndScenes Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:ActsAndScenes>
         <views:Characters Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Characters>
