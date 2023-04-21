@@ -36,5 +36,12 @@ jobs:
     - name: VSTest
       run: vstest.console.exe /Platform:x64 PieceOfTheater.sln
   
-    #- name: Test
-    #  run: dotnet test PieceOfTheater.Lib.Tests/PieceOfTheater.Lib.Tests.csproj -c Release --no-build --verbosity normal
+  # need to add a Windows Application Packaging project 
+  #https://github.com/microsoft/github-actions-for-desktop-apps
+  #https://github.com/microsoft/winget-cli/issues/2964
+  #  - name: Upload build artifacts
+   #   uses: actions/upload-artifact@v1
+    #  with:
+     #   name: MSIX Package
+      #  path: PieceOfTheater.Wpf.Package\AppPackages\
+  
