@@ -13,15 +13,23 @@
         <ItemsControl ItemsSource="{Binding Path=Characters}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="{Binding Path=CharacterName}" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
-AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" CommandParameter="{Binding Path=CharacterName}"></Button>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="{Binding Path=CharacterName}" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" CommandParameter="{Binding Path=CharacterName}" Width="100" Margin="10 0 10 0"></Button>
+                            <TextBlock>
+                                <Run Text="{Binding WordCount}"/>
+                                <Run Text="mots en "/>
+                                <Run Text="{Binding LineCount}"/>
+                                <Run Text="lignes et "/>
+                                <Run Text="{Binding SceneCount}"/>
+                                <Run Text="scènes."/>
+                            </TextBlock>
+                        </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
