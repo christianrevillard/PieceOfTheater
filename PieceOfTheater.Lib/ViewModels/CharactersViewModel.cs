@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PieceofTheater.Lib.ViewModels
 {
@@ -34,6 +35,27 @@ namespace PieceofTheater.Lib.ViewModels
            
        }
 
+        private int CountWord(string text) 
+        {
+            int wordCount = 0, index = 0;
+
+            while (index < text.Length && !char.IsLetterOrDigit(text[index]))
+                index++;
+
+            while (index < text.Length)
+            {
+                while (index < text.Length && char.IsLetterOrDigit(text[index]))
+                    index++;
+
+                wordCount++;
+
+                while (index < text.Length && !char.IsLetterOrDigit(text[index]))
+                    index++;
+            }
+
+            return wordCount;
+        }
+
         public override void OnAppearing()
         {
             base.OnAppearing();
@@ -56,7 +78,7 @@ namespace PieceofTheater.Lib.ViewModels
                     CharacterName = group.Key,
                     SceneCount = group.Select(a => a.Scene).Distinct().Count(),
                     LineCount = group.Count(),
-                    WordCount = group.Sum(line => line.Line.Text.Split(' ').Count()),
+                    WordCount = group.Sum(line => CountWord(line.Line.Text)),
                     CharacterRole = _model.Acts.Select(act =>
                     {
                         var characterAct = new Act() { 
