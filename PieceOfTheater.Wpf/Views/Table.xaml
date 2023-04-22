@@ -8,10 +8,63 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Table de repet - TODO"></TextBlock>
-            <TextBlock Text="{Binding Output}"></TextBlock>
-        </StackPanel>
-    </Grid>
+    <StackPanel>
+        <ItemsControl ItemsSource="{Binding Acts}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Label Content="{Binding Text}" Width="{Binding Width}"></Label>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Scenes}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Label Content="{Binding Text}" Width="{Binding Width}"></Label>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Characters}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <ItemsControl ItemsSource="{Binding Scenes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <Label Content="{Binding Text}" Width="{Binding Width}"></Label>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </StackPanel>
 </UserControl>
