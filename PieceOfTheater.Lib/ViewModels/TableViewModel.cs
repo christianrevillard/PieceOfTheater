@@ -24,8 +24,8 @@ namespace PieceofTheater.Lib.ViewModels
 
     internal class TableViewModel : BaseViewModel, ITableViewModel
     {
-        int _singleWidth=30;
-        int _minActWidth = 100;
+        int _singleWidth=60;
+        int _minActWidth = 150;
         int _firstCoolumnWidth=100;
 
         IPlayModel _model;
@@ -59,10 +59,10 @@ namespace PieceofTheater.Lib.ViewModels
             {
                 int actWidth = Math.Max(act.Elements.Count()*_singleWidth, _minActWidth);
                 int sceneWidth = actWidth/ act.Elements.Count();
-                acts.Add(new ColumnElement{Text = act.Title, Width= actWidth });
+                acts.Add(new ColumnElement{Text = $"{act.Label} {act.Key}: {act.Title}", Width= actWidth });
                 act.Elements.ForEach(scene =>
                 {
-                    scenes.Add(new ColumnElement{Text = scene.Title, Width= sceneWidth});
+                    scenes.Add(new ColumnElement{Text = $"{scene.Label} {scene.Key}", Width= sceneWidth});
 
                     foreach (var characterScene in characterScenes)
                     {

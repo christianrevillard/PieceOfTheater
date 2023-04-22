@@ -59,10 +59,18 @@ namespace PieceofTheater.Lib.ViewModels
                     WordCount = group.Sum(line => line.Line.Text.Split(' ').Count()),
                     CharacterRole = _model.Acts.Select(act =>
                     {
-                        var characterAct = new Act() { Title = act.Title };
+                        var characterAct = new Act() { 
+                            Title = act.Title,
+                            Label = act.Label,
+                            Key = act.Key
+                        };
                         characterAct.Elements.AddRange(act.Elements.Select(scene =>
                         {
-                            var characterScene = new Scene() { Title = scene.Title };
+                            var characterScene = new Scene() { 
+                                Title = scene.Title,
+                                Label = scene.Label,
+                                Key = scene.Key
+                            };
                             characterScene.Elements.AddRange(
                                 scene.Elements
                                 .Where(line => line.Character == group.Key)

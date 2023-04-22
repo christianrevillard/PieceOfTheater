@@ -82,18 +82,18 @@ namespace PieceofTheater.Lib.ViewModels
         {
             PlayableScenes = _model.Acts.Select(act =>
             {
-                var playableAct = new Act() { Title = act.Title };
+                var playableAct = new Act() {Title = act.Title, Label = act.Label, Key = act.Key};
                 playableAct.Elements.AddRange(act.Elements.Where(scene => scene.Elements.All(line => Characters.Any(c => c.IsSelected && c.CharacterName == line.Character))));
                 return playableAct;
             }).Where(act => act.Elements.Any()).ToList();
 
             UnplayableScenes = _model.Acts.Select(act =>
             {
-                var unplayableAct = new Act() { Title = act.Title };
+                var unplayableAct = new Act() {Title = act.Title, Label = act.Label, Key = act.Key};
                 unplayableAct.Elements.AddRange(
                     act.Elements.Select(scene =>
                     {
-                        var unplayableScene = new Scene() { Title = scene.Title };
+                        var unplayableScene = new Scene() {Title = scene.Title, Label = scene.Label, Key = scene.Key};
 
                         List<string> missingCharacters = new List<string>();
 

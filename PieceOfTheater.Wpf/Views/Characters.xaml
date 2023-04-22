@@ -61,14 +61,26 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Title}"></Label>
+                        <TextBlock>
+                                <Run Text="{Binding Label}"/>
+                                <Run Text=" "/>
+                                <Run Text="{Binding Key}"/>
+                                <Run Text=": "/>
+                                <Run Text="{Binding Title}"/>
+                        </TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="    "></Label>
                             <ItemsControl ItemsSource="{Binding Elements}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
-                                            <Label Content="{Binding Title}"></Label>
+                                            <TextBlock>
+                                                <Run Text="{Binding Label}"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding Key}"/>
+                                                <Run Text=": "/>
+                                                <Run Text="{Binding Title}"/>
+                                            </TextBlock>
                                             <StackPanel Orientation="Horizontal">
                                                 <Label Content="    "></Label>
                                                 <ItemsControl ItemsSource="{Binding Elements}">

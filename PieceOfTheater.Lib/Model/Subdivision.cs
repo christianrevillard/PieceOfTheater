@@ -32,6 +32,12 @@ namespace PieceofTheater.Lib.Model
             Label = match.Groups[1].Value.Trim();
             Key = match.Groups[2].Value.Trim();
             Title = match.Groups[3].Value.Trim();
+
+            if (string.IsNullOrEmpty(Label)) 
+            {
+                Label = (this is Act) ? "Acte" : "Scène";
+            }
+
             return true;
         }
     }

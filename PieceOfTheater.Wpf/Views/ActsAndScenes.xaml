@@ -13,39 +13,25 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{Binding Title}"></Label>
+                        <TextBlock>
+                                <Run Text="{Binding Label}"/>
+                                <Run Text=" "/>
+                                <Run Text="{Binding Key}"/>
+                                <Run Text=": "/>
+                                <Run Text="{Binding Title}"/>
+                        </TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="    "></Label>
                             <ItemsControl ItemsSource="{Binding Elements}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <Label Content="{Binding Title}"></Label>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Content="    "></Label>
-                                                <ItemsControl ItemsSource="{Binding Elements}">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <Label Content="{Binding Character}" Width="50"></Label>
-                                                                    <Label Content="{Binding Comment}"></Label>
-                                                                    <Label Content=": "></Label>
-                                                                    <Label Content="{Binding Text}"></Label>
-                                                                </StackPanel>
-
-
-                                                            </StackPanel>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Vertical"/>
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                        </StackPanel>
+                                        <TextBlock>
+                                            <Run Text="{Binding Label}"/>
+                                            <Run Text=" "/>
+                                            <Run Text="{Binding Key}"/>
+                                            <Run Text=": "/>
+                                            <Run Text="{Binding Title}"/>
+                                        </TextBlock>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
