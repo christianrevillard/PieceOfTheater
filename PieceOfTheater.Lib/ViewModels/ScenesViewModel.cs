@@ -43,6 +43,8 @@ namespace PieceofTheater.Lib.ViewModels
                     OnSelected = UpdatePlayableScenes 
                 })
                 .ToList();
+
+            UpdatePlayableScenes();
         }
 
         private string _output = "";

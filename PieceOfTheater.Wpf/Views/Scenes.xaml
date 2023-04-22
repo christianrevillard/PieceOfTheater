@@ -32,13 +32,15 @@
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
+                        <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <Button Content="Inverser" Command="{Binding InvertSelection}"></Button>
+            <Label Content=""></Label>
+            <Button Content="Inverser" Command="{Binding InvertSelection}" Width="200" HorizontalAlignment="Left"></Button>
 
+            <Label Content=""></Label>
             <Label Content="Scènes jouables"></Label>
 
             <ItemsControl ItemsSource="{Binding PlayableScenes}">
@@ -83,6 +85,7 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
+            <Label Content=""></Label>
             <Label Content="Scènes non jouables"></Label>
 
             <ItemsControl ItemsSource="{Binding UnplayableScenes}">
