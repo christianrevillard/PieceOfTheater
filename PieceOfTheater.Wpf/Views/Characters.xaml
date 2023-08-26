@@ -61,7 +61,7 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock>
+                        <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Run Text="{Binding Label}"/>
                                 <Run Text=" "/>
                                 <Run Text="{Binding Key}"/>
@@ -74,7 +74,7 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
-                                            <TextBlock>
+                                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <Run Text="{Binding Label}"/>
                                                 <Run Text=" "/>
                                                 <Run Text="{Binding Key}"/>

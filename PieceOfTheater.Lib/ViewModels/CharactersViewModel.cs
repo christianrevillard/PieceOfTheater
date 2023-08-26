@@ -132,6 +132,12 @@ namespace PieceofTheater.Lib.ViewModels
             UpdateTotalTime();
         }
 
+        public override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Characters = null;
+        }
+
         private List<CharacterDetails> _characters = new List<CharacterDetails>();
 
         public List<CharacterDetails> Characters { get { return _characters; } set { Set(ref _characters, value); } }

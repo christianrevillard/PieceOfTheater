@@ -38,5 +38,12 @@ namespace PieceofTheater.Lib.ViewModels
                         .Elements.Where(line => line.Character == "" && line.Text=="").Select(line=>line.Comment)))
                 .ToList();
         }
+
+        public override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Acts = null;
+            PureComments = null;
+        }
     }
 }

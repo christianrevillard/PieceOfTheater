@@ -33,8 +33,8 @@ namespace PieceofTheater.Lib.Model
                 // move to the classes...
                 var lineRegex = @"^([^:+(]*) *(\(.+\))? *: *([^ ].*)$";
 
-                Act newAct = new Act() { Label = "NoAct"};
-                Scene newScene = new Scene() { Label = "NoScene"};
+                Act newAct = new Act() {};
+                Scene newScene = new Scene() {};
                 if (newAct.ParseTitle(textLine))
                 {
                     Acts.Add(newAct);

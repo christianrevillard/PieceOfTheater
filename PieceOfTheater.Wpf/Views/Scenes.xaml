@@ -47,7 +47,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock>
+                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Run Text="{Binding Label}"/>
                                 <Run Text=" "/>
                                 <Run Text="{Binding Key}"/>
@@ -59,7 +59,7 @@
                                 <ItemsControl ItemsSource="{Binding Elements}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock>
+                                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <Run Text="{Binding Label}"/>
                                                 <Run Text=" "/>
                                                 <Run Text="{Binding Key}"/>
@@ -92,7 +92,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock>
+                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Run Text="{Binding Label}"/>
                                 <Run Text=" "/>
                                 <Run Text="{Binding Key}"/>
@@ -105,7 +105,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                 <TextBlock Style="{StaticResource Strikethrough}">
+                                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource Strikethrough}">
                                                         <Run Text="{Binding Label}"/>
                                                         <Run Text=" "/>
                                                         <Run Text="{Binding Key}"/>

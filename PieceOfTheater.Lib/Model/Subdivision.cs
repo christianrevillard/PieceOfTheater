@@ -12,6 +12,7 @@ namespace PieceofTheater.Lib.Model
         public string Label { get; set; }
         public string Key { get; set; }
         public string Title { get; set; }
+        public bool IsDefined { get { return !string.IsNullOrEmpty(Label); } }
 
         public List<T> Elements { get; } = new List<T>();
 

@@ -50,6 +50,12 @@ namespace PieceofTheater.Lib.ViewModels
             UpdatePlayableScenes();
         }
 
+        public override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Characters = null;
+        }
+
         private string _output = "";
         public string Output { get { return _output; } set { Set(ref _output, value); } }
 
