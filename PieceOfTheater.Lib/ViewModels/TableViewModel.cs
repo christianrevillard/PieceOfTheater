@@ -37,7 +37,9 @@ namespace PieceofTheater.Lib.ViewModels
         public override void OnAppearing()
         {
 
-            var characters = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements.Select(line => line.Character))).Distinct().ToList();
+            var characters = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements
+                .Where(line=>line.Character != "")
+                .Select(line => line.Character))).Distinct().ToList();
 
             List<ColumnElement> acts = new List<ColumnElement>();
             List<ColumnElement> scenes = new List<ColumnElement>();

@@ -1,6 +1,7 @@
 ﻿using PieceofTheater.Lib.DependencyInjection;
 using PieceofTheater.Lib.Model;
 using PieceOfTheater.Lib.MVVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,7 +63,9 @@ namespace PieceofTheater.Lib.ViewModels
 
             List<CharacterDetails> characters = new List<CharacterDetails>();
 
-            var parsed = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements.Select(line => new { Scene = s, Line = line })).Select(line =>
+            var parsed = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements
+                .Where(line=>line.Character != "")
+                .Select(line => new { Scene = s, Line = line })).Select(line =>
                         new
                         {
                             Character = line.Line.Character,
@@ -73,35 +76,52 @@ namespace PieceofTheater.Lib.ViewModels
 
             foreach (var group in parsed.GroupBy(p => p.Character))
             {
-                characters.Add(new CharacterDetails()
+                try
                 {
-                    CharacterName = group.Key,
-                    SceneCount = group.Select(a => a.Scene).Distinct().Count(),
-                    LineCount = group.Count(),
-                    WordCount = group.Sum(line => CountWord(line.Line.Text)),
-                    CharacterRole = _model.Acts.Select(act =>
+                    characters.Add(new CharacterDetails()
                     {
-                        var characterAct = new Act() { 
-                            Title = act.Title,
-                            Label = act.Label,
-                            Key = act.Key
-                        };
-                        characterAct.Elements.AddRange(act.Elements.Select(scene =>
+                        CharacterName = group.Key,
+                        SceneCount = group.Select(a => a.Scene).Distinct().Count(),
+                        LineCount = group.Count(),
+                        WordCount = group.Sum(line => CountWord(line.Line.Text)),
+                        CharacterRole = _model.Acts.Select(act =>
                         {
-                            var characterScene = new Scene() { 
-                                Title = scene.Title,
-                                Label = scene.Label,
-                                Key = scene.Key
+                            var characterAct = new Act()
+                            {
+                                Title = act.Title,
+                                Label = act.Label,
+                                Key = act.Key
                             };
-                            characterScene.Elements.AddRange(
-                                scene.Elements
-                                .Where(line => line.Character == group.Key)
-                                .Select(line => new Line() { Character = line.Character, Text = line.Text, Comment = line.Comment }));
-                            return characterScene;
-                        }).Where(scene => scene.Elements.Any()).ToList());
-                        return characterAct;
-                    }).Where(act => act.Elements.Any()).ToList()
-                });
+                            characterAct.Elements.AddRange(act.Elements.Select(scene =>
+                            {
+                                var characterScene = new Scene()
+                                {
+                                    Title = scene.Title,
+                                    Label = scene.Label,
+                                    Key = scene.Key
+                                };
+                                characterScene.Elements.AddRange(
+                                    scene.Elements
+                                    .Where(line => line.Character == group.Key)
+                                    .Select(line => new Line() { Character = line.Character, Text = line.Text, Comment = line.Comment }));
+                                return characterScene;
+                            }).Where(scene => scene.Elements.Any()).ToList());
+                            return characterAct;
+                        }).Where(act => act.Elements.Any()).ToList()
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // todo log Exception...
+                    characters.Add(new CharacterDetails()
+                    {
+                        CharacterName = ex.Message,
+                        SceneCount = 0,
+                        LineCount = 0,
+                        WordCount = 0,
+                        CharacterRole = new List<Act>()
+                    });
+                }
             }
 
             Characters = characters;

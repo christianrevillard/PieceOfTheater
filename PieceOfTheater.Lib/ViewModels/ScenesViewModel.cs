@@ -35,12 +35,15 @@ namespace PieceofTheater.Lib.ViewModels
         {
             base.OnAppearing();
 
-            Characters = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements.Select(line => new { Scene = s, Line = line })).Select(line => line.Line.Character))
+            Characters = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements
+            .Where(line => line.Character != "")
+            .Select(line => new { Scene = s, Line = line })).Select(line => line.Line.Character))
                 .Distinct()
-                .Select(characterName => new SelectedCharacter() { 
-                    CharacterName = characterName, 
+                .Select(characterName => new SelectedCharacter()
+                {
+                    CharacterName = characterName,
                     IsSelected = false,
-                    OnSelected = UpdatePlayableScenes 
+                    OnSelected = UpdatePlayableScenes
                 })
                 .ToList();
 

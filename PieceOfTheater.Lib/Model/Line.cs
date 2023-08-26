@@ -22,6 +22,13 @@ namespace PieceofTheater.Lib.Model
                 Comment = match.Groups[2].Value.Trim();
                 Text = match.Groups[3].Value.Trim();
             }
+            else 
+            {
+                //pure comment
+                Character = "";
+                Comment = line;
+                Text = "";
+            }
         }
     }
 }

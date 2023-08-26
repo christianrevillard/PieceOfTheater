@@ -33,8 +33,8 @@ namespace PieceofTheater.Lib.Model
                 // move to the classes...
                 var lineRegex = @"^([^:+(]*) *(\(.+\))? *: *([^ ].*)$";
 
-                Act newAct = new Act();
-                Scene newScene = new Scene();
+                Act newAct = new Act() { Label = "NoAct"};
+                Scene newScene = new Scene() { Label = "NoScene"};
                 if (newAct.ParseTitle(textLine))
                 {
                     Acts.Add(newAct);
@@ -42,16 +42,22 @@ namespace PieceofTheater.Lib.Model
                 else if (newScene.ParseTitle(textLine))
                 {
                     if (!Acts.Any())
+                    {
                         Acts.Add(newAct);
+                    }
                     Acts.Last().Elements.Add(newScene);
                 }
                 else
                 {
                     if (!Acts.Any())
+                    {
                         Acts.Add(newAct);
+                    }
                     if (!Acts.Last().Elements.Any())
+                    {
+
                         Acts.Last().Elements.Add(newScene);
-                    // handle adding lines directly to Act (Prologue..., act with one unnamed scene)
+                    }
                     Acts.Last().Elements.Last().Elements.Add(new Line(lineRegex, textLine));
                 }
             }

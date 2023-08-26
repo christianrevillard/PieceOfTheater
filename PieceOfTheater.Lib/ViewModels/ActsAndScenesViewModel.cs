@@ -22,11 +22,21 @@ namespace PieceofTheater.Lib.ViewModels
         private List<Act> _acts = new List<Act>();
         public List<Act> Acts { get { return _acts; } set { Set(ref _acts, value);  } }
 
+        private List<string> _pureComments = new List<string>();
+        public List<string> PureComments { get { return _pureComments; } set { Set(ref _pureComments, value); } }
+
         public override void OnAppearing()
         {
             base.OnAppearing();
 
             Acts = _model.Acts;
+            PureComments = _model
+                .Acts
+                .SelectMany(act => act
+                    .Elements
+                    .SelectMany(scene => scene
+                        .Elements.Where(line => line.Character == "" && line.Text=="").Select(line=>line.Comment)))
+                .ToList();
         }
     }
 }

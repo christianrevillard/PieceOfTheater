@@ -23,10 +23,12 @@ namespace PieceofTheater.Lib.Model
             if (Parse("^(.{1,2}PILOGUE)()()$", line))
                 return true;
 
-            if (Parse("^(ACTE)(?: *)((?:[IXV]{1,4}\\.?)|(?:[0-9]*\\.?))(?: *)(.*)$", line))
+            // explicit "acte", any type of numbers
+            if (Parse("^(ACTE)(?: *)((?:[IXV]+)|(?:[0-9]+))(?: *[ :.] *)(.*)$", line))
                 return true;
 
-            if (Parse("^()((?:[IXV]{1,4}\\.?))(?: *)(.*)$", line))
+            // no explicit "acte", require roman numbers
+            if (Parse("^()(?: *)([IXV]+)(?: *[ :.] *)(.*)$", line))
                 return true;
 
             return false;

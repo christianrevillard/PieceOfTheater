@@ -10,7 +10,9 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal" >
-            <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604"/>
+            <TextBox x:Name="Input" Height="457" TextWrapping="Wrap" Text="{Binding Input}" Width="604" 
+            VerticalScrollBarVisibility="Auto"
+            AcceptsReturn="True"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -8,7 +8,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <StackPanel>
+        <Label Content="Programme"/>
+
         <ItemsControl ItemsSource="{Binding Acts}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -50,5 +52,21 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-    </Grid>
+
+        <Label Content="Didascalies"/>
+
+        <ItemsControl ItemsSource="{Binding PureComments}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}"></Label>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+    </StackPanel>
 </UserControl>
