@@ -61,10 +61,10 @@ namespace PieceofTheater.Lib.ViewModels
             {
                 int actWidth = Math.Max(act.Elements.Count()*_singleWidth, _minActWidth);
                 int sceneWidth = actWidth/ act.Elements.Count();
-                acts.Add(new ColumnElement{Text = $"{act.Label} {act.Key}: {act.Title}", Width= actWidth });
+                acts.Add(new ColumnElement{Text = act.IsDefined? $"{act.Label} {act.Key}: {act.Title}":"", Width= actWidth });
                 act.Elements.ForEach(scene =>
                 {
-                    scenes.Add(new ColumnElement{Text = $"{scene.Label} {scene.Key}", Width= sceneWidth});
+                    scenes.Add(new ColumnElement{Text = scene.IsDefined?$"{scene.Label} {scene.Key}":"", Width= sceneWidth});
 
                     foreach (var characterScene in characterScenes)
                     {
@@ -77,6 +77,14 @@ namespace PieceofTheater.Lib.ViewModels
             Acts = acts;
             Scenes = scenes;
             Characters = characterScenes;
+        }
+
+        public override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Acts = null;
+            Scenes = null;
+            Characters = null;
         }
 
         private List<ColumnElement> _acts = new List<ColumnElement>();

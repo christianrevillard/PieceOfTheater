@@ -1,7 +1,5 @@
 ﻿using PieceofTheater.Lib.Model;
 using PieceOfTheater.Lib.MVVM;
-using System.Linq;
-using System.Windows.Input;
 
 namespace PieceofTheater.Lib.ViewModels
 {
