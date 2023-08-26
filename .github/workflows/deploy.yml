@@ -8,6 +8,7 @@ on:
 env:
     PROJECT_PATH: PieceOfTheater/PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj
 
+
 jobs:
     deploy:
         runs-on: windows-latest
