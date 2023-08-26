@@ -40,7 +40,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN}}
             #PieceOfTheater\PieceOfTheater\PieceOfTheater.Wpf\bin\Release\net6.0-windows\win-x64\publish\
-            pattern: PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.exe
+            pattern: PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.*
             release-url: ${{ steps.create_release.outputs.upload_url }}
 
 
