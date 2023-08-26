@@ -1,4 +1,4 @@
-name: DeployPieceOfTheater
+name: DeploybPieceOfTheater FrameworkDependant
 
 on:
   push:
