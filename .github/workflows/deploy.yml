@@ -4,10 +4,8 @@ name: DeployPieceOfTheater
 
 on:
   push:
-    branches: [ "master" ]
-#    push:fix action n
-#        tags:
-#        - "PieceOfTheater/v*"
+    tags:
+        - "release/v*"
 
 env:
     PROJECT_PATH: PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj        
