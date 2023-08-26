@@ -4,8 +4,10 @@ name: DeployPieceOfTheater
 
 on:
   push:
-    tags:
-        - "release/v*"
+    branches: [ "master" ]
+#    push:fix action n
+#        tags:
+#        - "PieceOfTheater/v*"
 
 env:
     PROJECT_PATH: PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj        
@@ -39,7 +41,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN}}
             #PieceOfTheater\PieceOfTheater\PieceOfTheater.Wpf\bin\Release\net6.0-windows\win-x64\publish\
-            pattern: PieceOfTheater/PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.exe
+            pattern: PieceOfTheaterPieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.exe
             release-url: ${{ steps.create_release.outputs.upload_url }}
 
 
