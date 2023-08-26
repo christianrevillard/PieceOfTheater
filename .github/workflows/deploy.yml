@@ -37,7 +37,7 @@ jobs:
             tag_name: ${{ github.ref }}
             release_name: ${{ github.ref }}
 
-        -uses: csexton/release-asset-actions@v2
+        - uses: csexton/release-asset-actions@v2
         with:
             github-token: ${{ secrets.GITHUB_TOKEN}}
             pattern: PieceOfTheater.Wpf/bin/Release/net6.0-windows/publish/win-x64/*.exe
