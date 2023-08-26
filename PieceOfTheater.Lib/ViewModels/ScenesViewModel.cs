@@ -88,7 +88,7 @@ namespace PieceofTheater.Lib.ViewModels
             PlayableScenes = _model.Acts.Select(act =>
             {
                 var playableAct = new Act() {Title = act.Title, Label = act.Label, Key = act.Key};
-                playableAct.Elements.AddRange(act.Elements.Where(scene => scene.Elements.All(line => Characters.Any(c => c.IsSelected && c.CharacterName == line.Character))));
+                playableAct.Elements.AddRange(act.Elements.Where(scene => scene.Elements.Where(line => line.Character != "").All(line => Characters.Any(c => c.IsSelected && c.CharacterName == line.Character))));
                 return playableAct;
             }).Where(act => act.Elements.Any()).ToList();
 
@@ -102,7 +102,7 @@ namespace PieceofTheater.Lib.ViewModels
 
                         List<string> missingCharacters = new List<string>();
 
-                        foreach (var character in scene.Elements.Select(line => line.Character).Distinct()) 
+                        foreach (var character in scene.Elements.Where(line=>line.Character!="").Select(line => line.Character).Distinct()) 
                         {
                             if (!Characters.Any(c => c.IsSelected && c.CharacterName == character)) 
                             {
