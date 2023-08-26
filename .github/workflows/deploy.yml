@@ -1,11 +1,13 @@
 # This workflow will build a .NET project
 
-name: DeployPieceOfTheater2
+name: DeployPieceOfTheater
 
 on:
-    push:
-        tags:
-        - "PieceOfTheater/v*"
+  push:
+    branches: [ "master" ]
+#    push:
+#        tags:
+#        - "PieceOfTheater/v*"
 
 env:
     PROJECT_PATH: PieceOfTheater/PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj        
