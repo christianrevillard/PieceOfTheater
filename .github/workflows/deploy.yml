@@ -5,7 +5,7 @@ name: DeployPieceOfTheater
 on:
   push:
     branches: [ "master" ]
-#    push:
+#    push:fix action n
 #        tags:
 #        - "PieceOfTheater/v*"
 
