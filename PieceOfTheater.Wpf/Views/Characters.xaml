@@ -25,7 +25,8 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                                 <Run Text="{Binding LineCount}"/>
                                 <Run Text="répliques et "/>
                                 <Run Text="{Binding SceneCount}"/>
-                                <Run Text="scènes."/>
+                                <Run Text="scènes, pour une durée de "/>
+                                <Run Text="{Binding TotalTime}"/>
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>

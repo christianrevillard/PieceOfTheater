@@ -17,6 +17,7 @@ namespace PieceofTheater.Lib.ViewModels
         public int SceneCount { get; set; }
         public int LineCount { get; set; }
         public int WordCount { get; set; }
+        public string TotalTime{ get; set; }
     }
 
     public interface ICharactersViewModel
@@ -158,13 +159,25 @@ namespace PieceofTheater.Lib.ViewModels
             if (WordsPerMinute <= 0)
                 return;
 
-            int totalSeconds = TotalWordCount*60/WordsPerMinute;
+            TotalTime = GetTimeString(TotalWordCount);
+
+            Characters.ForEach(character =>
+            {
+                character.TotalTime = GetTimeString(character.WordCount);
+            });
+
+            Characters = Characters.ToList();
+        }
+
+        private string GetTimeString(int wordCount)
+        {
+            int totalSeconds = wordCount*60/WordsPerMinute;
             int hours = totalSeconds/3600;
             int minutes = (totalSeconds%3600) / 60;
             int seconds= (totalSeconds%60);
 
             StringBuilder time= new StringBuilder();
-            if (hours > 0) 
+            if (hours > 0)
             {
                 time.Append($"{hours} heure{(hours > 1 ? "s" : "")} ");
             }
@@ -174,10 +187,10 @@ namespace PieceofTheater.Lib.ViewModels
             }
             if (seconds > 0)
             {
-                time.Append($"{seconds} seconde{(seconds> 1 ? "s" : "")} ");
+                time.Append($"{seconds} seconde{(seconds > 1 ? "s" : "")} ");
             }
 
-            TotalTime = time.ToString();
+            return time.ToString();
         }
     }
 }
