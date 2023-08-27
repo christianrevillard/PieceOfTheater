@@ -18,6 +18,7 @@ namespace PieceofTheater.Lib.ViewModels
         public int LineCount { get; set; }
         public int WordCount { get; set; }
         public string TotalTime{ get; set; }
+        public bool IsVisible { get; set; } = true;
     }
 
     public interface ICharactersViewModel
@@ -134,7 +135,17 @@ namespace PieceofTheater.Lib.ViewModels
                     obj => { return true; },
                     obj =>
                     {
-                        SelectedCharacter = Characters.FirstOrDefault(c => c.CharacterName == (string)obj);
+                        if (SelectedCharacter != null && SelectedCharacter.CharacterName == (string)obj)
+                        {
+                            SelectedCharacter = null;
+                        }
+                        else
+                        {
+                            SelectedCharacter = Characters.FirstOrDefault(c => c.CharacterName == (string)obj);
+                        }
+
+                        Characters.ForEach(c => c.IsVisible = SelectedCharacter == null || SelectedCharacter.CharacterName == c.CharacterName);
+                        Characters = Characters.ToList();
                     }));
             }
         }
