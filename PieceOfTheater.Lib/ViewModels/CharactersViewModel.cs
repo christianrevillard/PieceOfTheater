@@ -36,54 +36,32 @@ namespace PieceofTheater.Lib.ViewModels
            
        }
 
-        private int CountWord(string text) 
-        {
-            int wordCount = 0, index = 0;
-
-            while (index < text.Length && !char.IsLetterOrDigit(text[index]))
-                index++;
-
-            while (index < text.Length)
-            {
-                while (index < text.Length && char.IsLetterOrDigit(text[index]))
-                    index++;
-
-                wordCount++;
-
-                while (index < text.Length && !char.IsLetterOrDigit(text[index]))
-                    index++;
-            }
-
-            return wordCount;
-        }
-
         public override void OnAppearing()
         {
             base.OnAppearing();
 
             List<CharacterDetails> characters = new List<CharacterDetails>();
 
-            var parsed = _model.Acts.SelectMany(a => a.Elements.SelectMany(s => s.Elements
+            var parsed = _model.Acts.SelectMany(act => act.Elements.SelectMany(s => s.Elements
                 .Where(line=>line.Character != "")
-                .Select(line => new { Scene = s, Line = line })).Select(line =>
+                .Select(line => new { Scene = s, Line = line })).Select(a =>
                         new
                         {
-                            Character = line.Line.Character,
-                            Line = line.Line,
-                            Scene = line.Scene,
+                            Line = a.Line,
+                            Scene = a.Scene, 
                             Act = a
                         }));
 
-            foreach (var group in parsed.GroupBy(p => p.Character))
+            foreach (var group in parsed.GroupBy(p => p.Line.Character))
             {
                 try
                 {
                     characters.Add(new CharacterDetails()
                     {
                         CharacterName = group.Key,
-                        SceneCount = group.Select(a => a.Scene).Distinct().Count(),
+                        SceneCount = group.Select(p => p.Scene).Distinct().Count(),
                         LineCount = group.Count(),
-                        WordCount = group.Sum(line => CountWord(line.Line.Text)),
+                        WordCount = group.Sum(p => p.Line.LineWordCount),
                         CharacterRole = _model.Acts.Select(act =>
                         {
                             var characterAct = new Act()
@@ -102,8 +80,7 @@ namespace PieceofTheater.Lib.ViewModels
                                 };
                                 characterScene.Elements.AddRange(
                                     scene.Elements
-                                    .Where(line => line.Character == group.Key)
-                                    .Select(line => new Line() { Character = line.Character, Text = line.Text, Comment = line.Comment }));
+                                    .Where(line => line.Character == group.Key));
                                 return characterScene;
                             }).Where(scene => scene.Elements.Any()).ToList());
                             return characterAct;
