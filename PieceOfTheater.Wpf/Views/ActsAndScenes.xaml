@@ -10,8 +10,8 @@
 
     <StackPanel>
         <Label Content="Programme"/>
-
-        <ItemsControl ItemsSource="{Binding Acts}">
+        <ScrollViewer Height="400">
+            <ItemsControl ItemsSource="{Binding Acts}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -52,10 +52,11 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+        </ScrollViewer>
 
         <Label Content="Didascalies"/>
-
-        <ItemsControl ItemsSource="{Binding PureComments}">
+        <ScrollViewer Height="100">
+            <ItemsControl ItemsSource="{Binding PureComments}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding}"></Label>
@@ -67,6 +68,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+        </ScrollViewer>
 
     </StackPanel>
 </UserControl>
