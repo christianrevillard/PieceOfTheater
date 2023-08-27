@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace PieceOfTheater.Wpf.Views
 {
-    public sealed partial class Characters : UserControl
+    public sealed partial class Characters : Grid
     {
         public Characters()
         {

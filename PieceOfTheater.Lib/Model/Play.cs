@@ -9,6 +9,7 @@ namespace PieceofTheater.Lib.Model
     public interface IPlayModel {
         string Title { get; }
         List<Act> Acts { get; }
+        string SelectedCharacterName { get; }
         void Parse(string text);
     }
 
@@ -17,6 +18,7 @@ namespace PieceofTheater.Lib.Model
         public string Title { get; set; }
         public List<Character> Characters { get; } = new List<Character>();
         public List<Act> Acts { get; } = new List<Act>();
+        public string SelectedCharacterName { get; set; }
 
 
         public void Parse(string text) 

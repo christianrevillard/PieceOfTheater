@@ -7,7 +7,7 @@ using PieceofTheater.Lib.DependencyInjection;
 
 namespace PieceOfTheater.Wpf.Views
 {
-    public sealed partial class Table : UserControl
+    public sealed partial class Table : Grid
     {
         public Table()
         {

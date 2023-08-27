@@ -32,9 +32,9 @@ namespace PieceofTheater.Lib.ViewModels
                 }
             });
 
-            _mediator.Subscribe<Type>("Appearing", selectedView =>
+            _mediator.Subscribe<Type>("Appearing", selectedViewModel =>
             {
-                if (selectedView.IsAssignableFrom(this.GetType()) && !IsSelected)
+                if (selectedViewModel.IsAssignableFrom(this.GetType()) && !IsSelected)
                 {
                     IsSelected = true;
                     this.OnAppearing();

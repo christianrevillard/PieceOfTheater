@@ -5,20 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:PieceOfTheater.Wpf.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0 0 5 0">
-            <Button Content="Texte" Command="{Binding OpenPlayText}" Margin="0 0 5 0"></Button>
-            <Button Content="Actes et scènes" Command="{Binding OpenActAndScenes}" Margin="0 0 5 0"></Button>
-            <Button Content="Personnages et Répliques" Command="{Binding OpenCharacters}" Margin="0 0 5 0"></Button>
-            <Button Content="Scènes jouables" Command="{Binding OpenScenes}" Margin="0 0 5 0"></Button>
-            <Button Content="Tables de répétition" Command="{Binding OpenTable}" Margin="0 0 5 0"></Button>
+        Title="MainWindow" Height="700" Width="900">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox 
+            x:Name="Input" 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            TextWrapping="Wrap" 
+            Text="{Binding Input}" 
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Auto"
+            AcceptsReturn="True"
+        />
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <Button Content="Texte" Command="{Binding OpenPlayText}" Margin="10" Padding="5"></Button>
+            <Button Content="Actes et scènes" Command="{Binding OpenActAndScenes}" Margin="10" Padding="5"></Button>
+            <Button Content="Personnages et Répliques" Command="{Binding OpenCharacters}" Margin="10" Padding="5"></Button>
+            <Button Content="Scènes jouables" Command="{Binding OpenScenes}" Margin="10" Padding="5"></Button>
+            <Button Content="Tables de répétition" Command="{Binding OpenTable}" Margin="10" Padding="5"></Button>
         </StackPanel>
-        <Label Content=""></Label>
-        <views:PlayText Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:PlayText>
-        <views:ActsAndScenes Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:ActsAndScenes>
-        <views:Characters Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Characters>
-        <views:Scenes Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Scenes>
-        <views:Table Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Table>
-    </StackPanel>
+        <views:PlayText Grid.Row="1" Grid.Column="0" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:PlayText>
+        <views:ActsAndScenes Grid.Row="1" Grid.Column="0" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:ActsAndScenes>
+        <views:Characters Grid.Row="1" Grid.Column="0" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Characters>
+        <views:Scenes Grid.Row="1" Grid.Column="0" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Scenes>
+        <views:Table Grid.Row="1" Grid.Column="0" Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"></views:Table>
+    </Grid>
 </Window>

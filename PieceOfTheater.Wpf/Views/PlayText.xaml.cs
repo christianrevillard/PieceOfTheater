@@ -7,7 +7,7 @@ using PieceofTheater.Lib.DependencyInjection;
 
 namespace PieceOfTheater.Wpf.Views
 {
-    public sealed partial class PlayText : UserControl
+    public sealed partial class PlayText : Grid
     {
         public PlayText()
         {

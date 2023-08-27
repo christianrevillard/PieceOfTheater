@@ -8,7 +8,7 @@ using PieceofTheater.Lib.DependencyInjection;
 
 namespace PieceOfTheater.Wpf.Views
 {
-    public sealed partial class ActsAndScenes : UserControl
+    public sealed partial class ActsAndScenes : Grid
     {
         public ActsAndScenes()
         {
