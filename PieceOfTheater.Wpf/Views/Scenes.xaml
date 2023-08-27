@@ -27,8 +27,8 @@
     <StackPanel Grid.Row="0" Grid.Column="0"> 
         <ItemsControl ItemsSource="{Binding Path=Characters}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
+                <DataTemplate >
+                    <StackPanel Margin="5">
                         <CheckBox 
                             Content="{Binding Path=CharacterName}" 
                             IsChecked="{Binding Path=IsSelected}">
@@ -38,7 +38,7 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

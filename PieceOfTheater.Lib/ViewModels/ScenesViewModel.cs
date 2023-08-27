@@ -45,6 +45,7 @@ namespace PieceofTheater.Lib.ViewModels
                     IsSelected = false,
                     OnSelected = UpdatePlayableScenes
                 })
+                .OrderBy(c => c.CharacterName)
                 .ToList();
 
             UpdatePlayableScenes();

@@ -102,7 +102,7 @@ namespace PieceofTheater.Lib.ViewModels
                 }
             }
 
-            Characters = characters;
+            Characters = characters.OrderBy(c=>c.CharacterName).ToList();
 
             TotalWordCount = Characters.Sum(c => c.WordCount);
             TotalLinesCount = Characters.Sum(c => c.LineCount);
