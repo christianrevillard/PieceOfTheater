@@ -1,6 +1,4 @@
 ﻿
-using PieceofTheater.Lib.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,10 +12,10 @@ namespace PieceofTheater.Lib.Model
 
     public class Play :IPlayModel
     {
+        // TODO parse title
         public string Title { get; set; }
         public List<Character> Characters { get; } = new List<Character>();
         public List<Act> Acts { get; } = new List<Act>();
-
 
         public void Parse(string text) 
         {

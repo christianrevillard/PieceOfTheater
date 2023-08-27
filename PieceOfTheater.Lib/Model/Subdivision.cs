@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace PieceofTheater.Lib.Model
 {
@@ -41,31 +37,5 @@ namespace PieceofTheater.Lib.Model
 
             return true;
         }
-    }
-
-    public class Subdivision
-    {
-        //protected string DefaultLabel {get; set;}
-        //protected string ParsedLabel { get; set;}
-        //protected string ParsedKey { get; set; }
-        //protected string ParsedTitle { get; set; }
-
-        //public string GetLabel()
-        //{
-        //    return ParsedLabel ?? DefaultLabel;
-        //}
-
-        //public string GetKey()
-        //{
-        //    return ParsedKey ?? DisplayString().Substring(0,1);
-        //}
-
-        //public string DisplayString()
-        //{
-        //    return string.IsNullOrEmpty(ParsedKey) ?
-        //        (string.IsNullOrEmpty(ParsedLabel) ? "" : $"{GetLabel()} {ParsedTitle}") :
-        //            $"{GetLabel()} {ParsedKey} {ParsedTitle}";
-            
-//        }
     }
 }
