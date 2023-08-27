@@ -45,131 +45,135 @@
         <Label Content=""></Label>
         <Button Content="Inverser" Command="{Binding InvertSelection}" Width="200" HorizontalAlignment="Left"></Button>
     </StackPanel>
-    <Grid Grid.Row="1" Grid.Column="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions> 
+    <Border  Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions> 
         
-        <Label Grid.Row="0" Grid.Column="0" Content="Scènes jouables"></Label>
-        <ScrollViewer Grid.Row="1" Grid.Column="0">
-            <ItemsControl ItemsSource="{Binding PlayableScenes}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <Run Text="{Binding Label}"/>
-                            <Run Text=" "/>
-                            <Run Text="{Binding Key}"/>
-                            <Run Text=": "/>
-                            <Run Text="{Binding Title}"/>
-                            </TextBlock>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="    "></Label>
-                                <ItemsControl ItemsSource="{Binding Elements}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                                            <Run Text="{Binding Label}"/>
-                                            <Run Text=" "/>
-                                            <Run Text="{Binding Key}"/>
-                                            <Run Text=": "/>
-                                            <Run Text="{Binding Title}"/>
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Vertical"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
+            <Label Grid.Row="0" Grid.Column="0" Content="Scènes jouables"></Label>
+            <ScrollViewer Grid.Row="1" Grid.Column="0">
+                <ItemsControl ItemsSource="{Binding PlayableScenes}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Run Text="{Binding Label}"/>
+                                <Run Text=" "/>
+                                <Run Text="{Binding Key}"/>
+                                <Run Text=": "/>
+                                <Run Text="{Binding Title}"/>
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="    "></Label>
+                                    <ItemsControl ItemsSource="{Binding Elements}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Run Text="{Binding Label}"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding Key}"/>
+                                                <Run Text=": "/>
+                                                <Run Text="{Binding Title}"/>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
-    <Grid Grid.Row="2" Grid.Column="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions> 
-        
-        <Label Grid.Row="0" Grid.Column="0" Content="Scènes non jouables"></Label>
-        <ScrollViewer Grid.Row="1" Grid.Column="0">
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+    <Border  Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Scènes non jouables"></Label>
+            <ScrollViewer Grid.Row="1" Grid.Column="0">
                 <ItemsControl ItemsSource="{Binding UnplayableScenes}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
                             <Run Text="{Binding Label}"/>
                             <Run Text=" "/>
                             <Run Text="{Binding Key}"/>
                             <Run Text=": "/>
                             <Run Text="{Binding Title}"/>
-                            </TextBlock>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="    "></Label>
-                                <ItemsControl ItemsSource="{Binding Elements}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource Strikethrough}">
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="    "></Label>
+                                    <ItemsControl ItemsSource="{Binding Elements}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource Strikethrough}">
                                                     <Run Text="{Binding Label}"/>
                                                     <Run Text=" "/>
                                                     <Run Text="{Binding Key}"/>
                                                     <Run Text=": "/>
                                                     <Run Text="{Binding Title}"/>
-                                                </TextBlock>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Label Content="    "></Label>
-                                                    <ItemsControl ItemsSource="{Binding Elements}">
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <Label Content="{Binding Text}"></Label>
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                        <ItemsControl.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <StackPanel Orientation="Vertical"/>
-                                                            </ItemsPanelTemplate>
-                                                        </ItemsControl.ItemsPanel>
-                                                    </ItemsControl>
+                                                    </TextBlock>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Content="    "></Label>
+                                                        <ItemsControl ItemsSource="{Binding Elements}">
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <Label Content="{Binding Text}"></Label>
+                                                                    </StackPanel>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Orientation="Vertical"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                        </ItemsControl>
+                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Vertical"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </Grid>
