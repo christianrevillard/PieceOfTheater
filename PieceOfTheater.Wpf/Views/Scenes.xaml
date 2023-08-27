@@ -17,14 +17,14 @@
 
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="0" Grid.Column="0"> 
+    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"> 
         <ItemsControl ItemsSource="{Binding Path=Characters}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
@@ -44,19 +44,20 @@
         </ItemsControl>
         <Label Content=""></Label>
         <Button Content="Inverser" Command="{Binding InvertSelection}" Width="200" HorizontalAlignment="Left"></Button>
+        <Label Content=""></Label>
     </StackPanel>
-    <Border  Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions> 
-        
-            <Label Grid.Row="0" Grid.Column="0" Content="Scènes jouables"></Label>
-            <ScrollViewer Grid.Row="1" Grid.Column="0">
+    <Grid Grid.Row="1" Grid.Column="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Scènes jouables"></Label>
+        <Border  Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding PlayableScenes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -99,30 +100,30 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
-        </Grid>
-    </Border>
-    <Border  Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        </Border>
+    </Grid>
+    <Grid Grid.Row="1" Grid.Column="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Scènes non jouables"></Label>
-            <ScrollViewer Grid.Row="1" Grid.Column="0">
+        <Label Grid.Row="0" Grid.Column="0" Content="Scènes non jouables"></Label>
+        <Border  Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding UnplayableScenes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <Run Text="{Binding Label}"/>
-                            <Run Text=" "/>
-                            <Run Text="{Binding Key}"/>
-                            <Run Text=": "/>
-                            <Run Text="{Binding Title}"/>
+                        <Run Text="{Binding Label}"/>
+                        <Run Text=" "/>
+                        <Run Text="{Binding Key}"/>
+                        <Run Text=": "/>
+                        <Run Text="{Binding Title}"/>
                                 </TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="    "></Label>
@@ -131,11 +132,11 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource Strikethrough}">
-                                                    <Run Text="{Binding Label}"/>
-                                                    <Run Text=" "/>
-                                                    <Run Text="{Binding Key}"/>
-                                                    <Run Text=": "/>
-                                                    <Run Text="{Binding Title}"/>
+                                                <Run Text="{Binding Label}"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding Key}"/>
+                                                <Run Text=": "/>
+                                                <Run Text="{Binding Title}"/>
                                                     </TextBlock>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Label Content="    "></Label>
@@ -174,6 +175,6 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
-        </Grid>
-    </Border>
+        </Border>
+    </Grid>
 </Grid>
