@@ -42,6 +42,7 @@ namespace PieceofTheater.Lib.ViewModels
         {
             base.OnAppearing();
 
+            SelectedCharacter = null;
             List<CharacterDetails> characters = new List<CharacterDetails>();
 
             var parsed = _model.Acts.SelectMany(act => act.Elements.SelectMany(s => s.Elements
