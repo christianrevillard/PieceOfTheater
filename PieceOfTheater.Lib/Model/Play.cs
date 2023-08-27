@@ -57,7 +57,6 @@ namespace PieceofTheater.Lib.Model
                     }
                     if (!Acts.Last().Elements.Any())
                     {
-
                         Acts.Last().Elements.Add(newScene);
                     }
                     Acts.Last().Elements.Last().Elements.Add(new Line(lineRegex, textLine));
