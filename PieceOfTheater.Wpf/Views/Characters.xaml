@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -15,11 +16,9 @@
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <ScrollViewer Grid.Row="0" Grid.Column="0">
-        <StackPanel>
+    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
 
-
-            <TextBlock>
+        <TextBlock>
         <Run Text="Total: "/>            
         <Run Text="{Binding TotalWordCount}"/>
         <Run Text="mots en "/>
@@ -28,24 +27,28 @@
         <Run Text="{Binding TotalSceneCount}"/>
         <Run Text="scènes, pour une durée de "/>
         <Run Text="{Binding TotalTime}"/>
-            </TextBlock>
+        </TextBlock>
 
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="50" Text="{Binding WordsPerMinute}" Margin="0 0 10 0"/>
-                <TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Width="50" Text="{Binding WordsPerMinute}" Margin="0 0 10 0"/>
+            <TextBlock>
             <Run Text="mots par minute."/>
-                </TextBlock>
-            </StackPanel>
+            </TextBlock>
+        </StackPanel>
+        <Label/>
+    </StackPanel>
 
-            <Label Content=""></Label>
+    <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
 
             <ItemsControl ItemsSource="{Binding Path=Characters}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
                             <Button Content="{Binding Path=CharacterName}" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
 AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" CommandParameter="{Binding Path=CharacterName}" Width="100" Margin="10 0 10 0"></Button>
-                            <TextBlock>
+                            <TextBlock Visibility="{Binding RelativeSource={RelativeSource FindAncestor, 
+AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
                             <Run Text="{Binding WordCount}"/>
                             <Run Text="mots en "/>
                             <Run Text="{Binding LineCount}"/>
@@ -64,23 +67,46 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <Label Content=""></Label>
-
         </StackPanel>
     </ScrollViewer>
-    
-    <ScrollViewer Grid.Row="1" Grid.Column="0">
-        <StackPanel>
+
+    <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding CharacterSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" >
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding SelectedCharacter.CharacterName}" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock VerticalAlignment="Center">
+                            <Run Text="{Binding SelectedCharacter.WordCount}"/>
+                            <Run Text="mots en "/>
+                            <Run Text="{Binding SelectedCharacter.LineCount}"/>
+                            <Run Text="répliques et "/>
+                            <Run Text="{Binding SelectedCharacter.SceneCount}"/>
+                            <Run Text="scènes, pour une durée de "/>
+                            <Run Text="{Binding SelectedCharacter.TotalTime}"/>
+                </TextBlock>
+            </StackPanel>
+            <Label></Label>
+
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" >
+
             <ItemsControl ItemsSource="{Binding SelectedCharacter.CharacterRole}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Run Text="{Binding Label}"/>
-                        <Run Text=" "/>
-                        <Run Text="{Binding Key}"/>
-                        <Run Text=": "/>
-                        <Run Text="{Binding Title}"/>
+                    <Run Text="{Binding Label}"/>
+                    <Run Text=" "/>
+                    <Run Text="{Binding Key}"/>
+                    <Run Text=": "/>
+                    <Run Text="{Binding Title}"/>
                             </TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="    "></Label>
@@ -89,11 +115,11 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                                         <DataTemplate>
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <Run Text="{Binding Label}"/>
-                                        <Run Text=" "/>
-                                        <Run Text="{Binding Key}"/>
-                                        <Run Text=": "/>
-                                        <Run Text="{Binding Title}"/>
+                                    <Run Text="{Binding Label}"/>
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding Key}"/>
+                                    <Run Text=": "/>
+                                    <Run Text="{Binding Title}"/>
                                                 </TextBlock>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Label Content="    "></Label>
@@ -132,6 +158,6 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" Com
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </Grid>
