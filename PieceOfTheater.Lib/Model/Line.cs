@@ -4,6 +4,7 @@ namespace PieceofTheater.Lib.Model
 {
     public class Line
     {
+        public int LineNumber { get; set; }
         public string Character { get; set; }
         public string Comment { get; set; }
         public string Text { get; set; }
@@ -54,8 +55,10 @@ namespace PieceofTheater.Lib.Model
             return wordCount;
         }
 
-        public Line(string regexPattern, string line)
+        public Line(string regexPattern, string line, int lineNumber)
         {
+            LineNumber = lineNumber;
+
             Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
 
             var match = regex.Match(line);

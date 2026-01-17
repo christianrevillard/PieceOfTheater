@@ -123,7 +123,15 @@ namespace PieceofTheater.Lib.ViewModels
 
         private CharacterDetails _selectedCharacter;
 
-        public CharacterDetails SelectedCharacter { get { return _selectedCharacter; } private set { Set(ref _selectedCharacter, value); } }
+        public CharacterDetails SelectedCharacter
+        {
+            get { return _selectedCharacter; }
+            private set
+            {
+                Set(ref _selectedCharacter, value);
+                CharacterSelected = (SelectedCharacter != null);
+            }
+        }
 
         private bool _characterSelected;
 
@@ -147,8 +155,6 @@ namespace PieceofTheater.Lib.ViewModels
                         {
                             SelectedCharacter = Characters.FirstOrDefault(c => c.CharacterName == (string)obj);
                         }
-
-                        CharacterSelected = (SelectedCharacter != null);
                     }));
             }
         }

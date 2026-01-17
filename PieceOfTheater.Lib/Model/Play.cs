@@ -27,6 +27,8 @@ namespace PieceofTheater.Lib.Model
 
             var textLines = text.Split('\n','\r').ToList();
 
+            int lineNumber = 0;
+
             foreach (var textLine in textLines)             
             {
                 if (string.IsNullOrWhiteSpace(textLine))
@@ -59,7 +61,7 @@ namespace PieceofTheater.Lib.Model
                     {
                         Acts.Last().Elements.Add(newScene);
                     }
-                    Acts.Last().Elements.Last().Elements.Add(new Line(lineRegex, textLine));
+                    Acts.Last().Elements.Last().Elements.Add(new Line(lineRegex, textLine, ++lineNumber));
                 }
             }
         }

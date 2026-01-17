@@ -19,7 +19,7 @@
     <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
 
         <Label/>
-        <TextBlock>
+        <TextBlock VerticalAlignment="Center">
         <Run Text="Total: "/>            
         <Run Text="{Binding TotalWordCount}"/>
         <Run Text="mots en "/>
@@ -32,7 +32,7 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBox Width="50" Text="{Binding WordsPerMinute}" Margin="0 0 10 0"/>
-            <TextBlock>
+            <TextBlock VerticalAlignment="Center">
             <Run Text="mots par minute."/>
             </TextBlock>
         </StackPanel>
@@ -49,7 +49,7 @@
                             <Button Content="{Binding Path=CharacterName}" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
 AncestorType={x:Type locals:Characters}}, Path=DataContext.SelectCharacter}" CommandParameter="{Binding Path=CharacterName}" Width="100" Margin="10 0 10 0"></Button>
                             <TextBlock Visibility="{Binding RelativeSource={RelativeSource FindAncestor, 
-AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Converter={StaticResource InvertedBoolToVisibilityConverter}}" VerticalAlignment="Center">
                             <Run Text="{Binding WordCount}"/>
                             <Run Text="mots en "/>
                             <Run Text="{Binding LineCount}"/>
@@ -102,12 +102,12 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Co
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Run Text="{Binding Label}"/>
-                    <Run Text=" "/>
-                    <Run Text="{Binding Key}"/>
-                    <Run Text=": "/>
-                    <Run Text="{Binding Title}"/>
+                            <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" FontWeight="Bold">
+                                <Run Text="{Binding Label}"/>
+                                <Run Text=" "/>
+                                <Run Text="{Binding Key}"/>
+                                <Run Text=": "/>
+                                <Run Text="{Binding Title}"/>
                             </TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="    "></Label>
@@ -115,12 +115,12 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Co
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Vertical">
-                                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <Run Text="{Binding Label}"/>
-                                    <Run Text=" "/>
-                                    <Run Text="{Binding Key}"/>
-                                    <Run Text=": "/>
-                                    <Run Text="{Binding Title}"/>
+                                                <TextBlock Visibility="{Binding IsDefined, Converter={StaticResource BoolToVisibilityConverter}}" FontWeight="Bold">
+                                                    <Run Text="{Binding Label}"/>
+                                                    <Run Text=" "/>
+                                                    <Run Text="{Binding Key}"/>
+                                                    <Run Text=": "/>
+                                                    <Run Text="{Binding Title}"/>
                                                 </TextBlock>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Label Content="    "></Label>
@@ -128,8 +128,18 @@ AncestorType={x:Type locals:Characters}}, Path=DataContext.CharacterSelected, Co
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock FontStyle="Italic" VerticalAlignment="Center">
+                                                                            <Run Text="(Ligne "/>
+                                                                            <Run Text="{Binding LineNumber}"/>
+                                                                            <Run Text=")"/>
+                                                                    </TextBlock>
                                                                     <Label Content="{Binding Comment}"></Label>
                                                                     <Label Content="{Binding Text}"></Label>
+                                                                    <TextBlock FontStyle="Italic" VerticalAlignment="Center">
+                                                                           <Run Text="("/>
+                                                                           <Run Text="{Binding LineWordCount}"/>
+                                                                           <Run Text=" mots)"/>
+                                                                    </TextBlock>
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
