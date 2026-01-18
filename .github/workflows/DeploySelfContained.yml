@@ -1,4 +1,4 @@
-name: DeploybPieceOfTheater FrameworkDependant
+name: Deploy PieceOfTheater SelfContained win-x64
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           run: dotnet restore ${{ env.PROJECT_PATH }}
 
         - name: Publish
-          run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -p:PublishSingleFile=true --self-contained false
+          run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
 
         - name: Create zip of all .exe and .dll
           shell: pwsh
@@ -58,8 +58,8 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           with:
-            tag_name: ${{ github.ref }}
-            release_name: ${{ github.ref }} (framework dependant)
+            tag_name: ${{ github.ref }}-win-x64
+            release_name: ${{ github.ref }} (self contained win-x64)
             draft: false
             prerelease: false
         
