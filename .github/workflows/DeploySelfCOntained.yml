@@ -1,81 +1,43 @@
-name: Deploy PieceOfTheater SelfContained win-x64
+- name: Create zip of all .exe and .dll
+  shell: pwsh
+  run: |
+    $publish = 'PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish'
+    $ref = "${{ github.ref_name }}"
+    $safeRef = $ref -replace '/','-'
+    $zipName = "PieceOfTheater-$safeRef-win-x64.zip"
+    Write-Host "Looking for .exe and .dll files in $publish"
+    if (-Not (Test-Path $publish)) {
+      Write-Host "Publish folder not found: $publish"
+      exit 0
+    }
+    Remove-Item -Recurse -Force -ErrorAction SilentlyContinue release-assets
+    New-Item -ItemType Directory -Path release-assets | Out-Null
+    $files = Get-ChildItem -Path $publish -Include *.exe,*.dll -File -Recurse -ErrorAction SilentlyContinue
+    if (-not $files) {
+      Write-Host "No .exe or .dll files found to include in zip."
+      exit 0
+    }
+    foreach ($f in $files) {
+      Copy-Item -Path $f.FullName -Destination release-assets -Force
+    }
+    Compress-Archive -Path release-assets\* -DestinationPath $zipName -Force
+    Write-Host "Created archive: $zipName"
 
-on:
-  push:
-    tags:
-        - "release/v*"
+# then place the Create release and Copy assets steps at the same indentation level as the Create zip step:
+- name: Create release
+  uses: actions/create-release@v1
+  id: create_release
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+  with:
+    tag_name: ${{ github.ref }}-win-x64
+    release_name: ${{ github.ref }} (self contained win-x64)
+    draft: false
+    prerelease: false
 
-env:
-    PROJECT_PATH: PieceOfTheater.Wpf/PieceOfTheater.Wpf.csproj        
-
-jobs:
-    deploy:
-        runs-on: windows-latest
-
-        steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-
-        - name: Set up dotnet
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: 6.0.x
-
-        - name: Restore
-          run: dotnet restore ${{ env.PROJECT_PATH }}
-
-        - name: Publish
-          run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
-
-        - name: Create zip of all .exe and .dll
-          shell: pwsh
-          run: |
-            $publish = 'PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish'
-            $zipName = "PieceOfTheater-${{ github.ref_name }}-win-x64.zip"
-            Write-Host "Looking for .exe and .dll files in $publish"
-            if (-Not (Test-Path $publish)) {
-              Write-Host "Publish folder not found: $publish"
-              exit 0
-            }
-            Remove-Item -Recurse -Force -ErrorAction SilentlyContinue release-assets
-            New-Item -ItemType Directory -Path release-assets | Out-Null
-            $files = Get-ChildItem -Path $publish -Include *.exe,*.dll -File -Recurse -ErrorAction SilentlyContinue
-            if ($files.Count -eq 0) {
-              Write-Host "No .exe or .dll files found to include in zip."
-              exit 0
-            }
-            foreach ($f in $files) {
-              Copy-Item -Path $f.FullName -Destination release-assets -Force
-            }
-            Compress-Archive -Path release-assets\* -DestinationPath $zipName -Force
-            Write-Host "Created archive: $zipName"
-
-            - name: Create release
-              uses: actions/create-release@v1
-              id: create_release
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-              with:
-                tag_name: ${{ github.ref }}-win-x64
-                release_name: ${{ github.ref }} (self contained win-x64)
-                draft: false
-                prerelease: false
-            
-            - name: Copy assets
-              uses: csexton/release-asset-action@v2
-              with:
-                github-token: ${{ secrets.GITHUB_TOKEN}}
-                pattern: PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.*
-                release-url: ${{ steps.create_release.outputs.upload_url }}
-
-
-
-
-
-
-
-
-
-
-
-
+- name: Copy assets
+  uses: csexton/release-asset-action@v2
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN}}
+    pattern: PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish/*.*
+    release-url: ${{ steps.create_release.outputs.upload_url }}
