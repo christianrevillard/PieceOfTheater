@@ -27,6 +27,31 @@ jobs:
         - name: Publish
           run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -p:PublishSingleFile=true --self-contained false
 
+        - name: Create zip of all .exe and .dll
+          shell: pwsh
+          run: |
+            $publish = 'PieceOfTheater.Wpf/bin/Release/net6.0-windows/win-x64/publish'
+            $ref = "${{ github.ref_name }}"
+            $safeRef = $ref -replace '/','-'
+            $zipName = "PieceOfTheater-$safeRef-win-x64.zip"
+            Write-Host "Looking for .exe and .dll files in $publish"
+            if (-Not (Test-Path $publish)) {
+              Write-Host "Publish folder not found: $publish"
+              exit 0
+            }
+            Remove-Item -Recurse -Force -ErrorAction SilentlyContinue release-assets
+            New-Item -ItemType Directory -Path release-assets | Out-Null
+            $files = Get-ChildItem -Path $publish -Include *.exe,*.dll -File -Recurse -ErrorAction SilentlyContinue
+            if (-not $files) {
+              Write-Host "No .exe or .dll files found to include in zip."
+              exit 0
+            }
+            foreach ($f in $files) {
+              Copy-Item -Path $f.FullName -Destination release-assets -Force
+            }
+            Compress-Archive -Path release-assets\* -DestinationPath $zipName -Force
+            Write-Host "Created archive: $zipName"
+
         - name: Create release
           uses: actions/create-release@v1
           id: create_release
